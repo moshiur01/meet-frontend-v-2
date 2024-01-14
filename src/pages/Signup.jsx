@@ -1,9 +1,9 @@
+/* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import singUpImg from "../assets/images/Sign-up-v2.png";
 import { bloodGroupOptions } from "../constrains/Global";
-import uploadImage from "../utils/UploadImageToCloudinary";
 
 const Signup = () => {
   const [selectFile, setSelectFile] = useState(null);
@@ -54,53 +54,11 @@ const Signup = () => {
   };
 
   //*signUp api handler
+
   const submitHandler = async (e) => {
     e.preventDefault();
-    console.log(formData.photo);
+
     console.log(formData);
-
-    const imageData = await uploadImage(formData?.photo);
-
-    console.log(imageData);
-
-    // Create form data
-    // const formDataToSend = new FormData();
-    // formDataToSend.append("name", formData.name);
-    // formDataToSend.append("email", formData.email);
-    // formDataToSend.append("password", formData.password);
-    // // formDataToSend.append("photo", formData.photo);
-    // formDataToSend.append("gender", formData.gender);
-    // formDataToSend.append("role", formData.role);
-
-    // console.log(
-    //   formData.name,
-    //   formData.email,
-    //   formData.password,
-    //   formData.gender,
-    //   formData.role
-    // );
-
-    // console.log(formDataToSend);
-
-    // Continue with your API request using formDataToSend
-    // const apiUrl = "your_backend_api_url";
-    // try {
-    //   const response = await fetch(apiUrl, {
-    //     method: "POST",
-    //     body: formDataToSend,
-    //   });
-
-    //   if (response.ok) {
-    //     console.log("Signup successful!");
-    //     // You can redirect or handle success as needed
-    //   } else {
-    //     console.error("Signup failed:", response.statusText);
-    //     // Handle error
-    //   }
-    // } catch (error) {
-    //   console.error("Error during signup:", error.message);
-    //   // Handle error
-    // }
   };
 
   return (

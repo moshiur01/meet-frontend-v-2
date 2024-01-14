@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { useUserLoginMutation } from "../redux/api/authApi";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -18,12 +19,27 @@ const Login = () => {
     setPasswordShow(!passwordShow);
   };
 
+  const [userLogin] = useUserLoginMutation();
   //*api call for login
   const handleLogin = async () => {
-    const { email, password } = formData;
+    // const { email, password } = formData;
 
-    console.log("Email:", email);
-    console.log("Password:", password);
+    try {
+      const res = await userLogin({ ...formData }).unwrap();
+      console.log(res);
+      // if (res?.accessToken) {
+      //   router.push("/profile");
+      //   message.success("User logged in successfully!");
+      // } else {
+      //   message.error("User email or password is incorrect");
+      // }
+
+      // storeUserInfo({ accessToken: res?.accessToken });
+
+      // console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
