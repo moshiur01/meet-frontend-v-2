@@ -7,10 +7,11 @@ const uploadImage = async (file) => {
   uploadData.append("upload_preset", upload_preset);
   uploadData.append("cloudinary", cloudinary_name);
 
-  console.log(upload_preset, cloudinary_name);
+  // console.log(upload_preset, cloudinary_name);
 
   const res = await fetch(
-    `https://api/cloudinary.com/v1_1/${cloudinary_name}/image/upload`,
+    `https://api.cloudinary.com/v1_1/${cloudinary_name}/image/upload`,
+
     {
       method: "POST",
       body: uploadData,

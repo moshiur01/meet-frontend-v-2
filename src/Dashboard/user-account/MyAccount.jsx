@@ -10,11 +10,12 @@ import ProfileSetting from "./ProfileSetting";
 const MyAccount = () => {
   const { id } = getUserInfo();
 
-  console.log(id);
+  // console.log(id);
+
   const navigate = useNavigate();
   const handleLogout = () => {
     removeUserInfo(authKey);
-    navigate("/home");
+    navigate("/login");
   };
 
   //active tab state
@@ -103,7 +104,9 @@ const MyAccount = () => {
               {/* conditional render tab content  */}
 
               {tab === "booking" && <MyBooking />}
-              {tab === "profileSetting" && <ProfileSetting />}
+              {tab === "profileSetting" && (
+                <ProfileSetting user={patientData} />
+              )}
             </div>
           </div>
         )}

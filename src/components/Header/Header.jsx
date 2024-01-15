@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import { BiMenu } from "react-icons/bi";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
-import avatar from "../../assets/images/tempUser.jpg";
+// import avatar from "../../assets/images/tempUser.jpg";
 import { getUserInfo } from "../../services/auth.service";
 
 const navLinks = [
@@ -29,7 +29,9 @@ function Header() {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
 
-  const { id, role, name } = getUserInfo();
+  const { id, photo } = getUserInfo();
+
+  console.log(photo);
   // console.log(id, role, name);
 
   const handleStickyHeader = () => {
@@ -103,20 +105,16 @@ function Header() {
           {/* avatar image  */}
 
           <div className="flex items-center gap-4 ">
-            {id || (name && role) ? (
+            {id ? (
               <>
-                <div className="hidden">
+                <div className="">
                   <Link to="/">
                     <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
-                      <img
-                        src={avatar}
-                        alt=""
-                        className="w-full rounded-full"
-                      />
+                      <img src={photo} alt="" className="w-full rounded-full" />
                     </figure>
                   </Link>
                 </div>
-                <h1>{name}</h1>
+                {/* <h1>{name}</h1> */}
               </>
             ) : (
               /* login button */

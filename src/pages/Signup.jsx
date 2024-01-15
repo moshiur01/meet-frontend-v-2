@@ -1,11 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import singUpImg from "../assets/images/Sign-up-v2.png";
 import { bloodGroupOptions } from "../constrains/Global";
+import { useAddPatientMutation } from "../redux/api/patient/patientApi";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
   const [selectFile, setSelectFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
 
@@ -55,10 +58,20 @@ const Signup = () => {
 
   //*signUp api handler
 
+  const [addPatient] = useAddPatientMutation();
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    console.log(formData);
+    try {
+      const res = await addPatient(formData);
+      console.log(res);
+      res?.data?.id && window.alert("patient data inserted successfully");
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+
+    // console.log(formData);
   };
 
   return (
