@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import Loading from "../../components/Loader/Loading";
 import {
   useAddTimeSlotMutation,
   useTimeSlotForDoctorQuery,
@@ -79,20 +80,24 @@ const AddTimeSlot = ({ doctorId }) => {
   const { data: timeSlotData, isLoading: loading } =
     useTimeSlotForDoctorQuery(doctorId);
 
-  console.log(timeSlotData);
+  // console.log(timeSlotData);
 
   return (
     <>
-      <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md text-[20px] font-semibold">
-        Your Taken Date and Time:
-        <ol type="1" className="mt-8">
-          {timeSlotData?.map((timeSlot) => (
-            <li key={timeSlot?.id} className="text__pera ">
-              {timeSlot?.day}, {timeSlot?.startTime} - {timeSlot?.EndTime}
-            </li>
-          ))}
-        </ol>
-      </div>
+      {loading && <Loading />}
+
+      {!loading && (
+        <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md text-[20px] font-semibold">
+          Your Taken Date and Time:
+          <ol type="1" className="mt-8">
+            {timeSlotData?.map((timeSlot) => (
+              <li key={timeSlot?.id} className="text__pera ">
+                {timeSlot?.day}, {timeSlot?.startTime} - {timeSlot?.EndTime}
+              </li>
+            ))}
+          </ol>
+        </div>
+      )}
 
       <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
         <h2 className="text-2xl font-bold mb-4">Add Time Slot</h2>

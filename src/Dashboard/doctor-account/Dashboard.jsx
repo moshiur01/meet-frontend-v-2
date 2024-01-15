@@ -19,7 +19,7 @@ const DoctorDashboard = () => {
 
   const { data: doctorData, isLoading: loading } = useDoctorQuery(id);
 
-  // console.log(doctorData);
+  console.log(doctorData);
 
   return (
     <section>
@@ -139,7 +139,10 @@ const DoctorDashboard = () => {
               )}
               {activeTab === "service" && (
                 <div>
-                  <AddService />
+                  <AddService
+                    doctorId={doctorData?.id}
+                    timeSlot={doctorData?.timeSlots}
+                  />
                 </div>
               )}
             </div>
