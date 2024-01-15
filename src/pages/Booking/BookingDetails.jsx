@@ -1,5 +1,11 @@
+import { useParams } from "react-router-dom";
+
 const BookingDetails = () => {
-  return <div>BookingDetails</div>;
+  const { id } = useParams();
+
+  console.log(id);
+
+  return <div>BookingDetails </div>;
 };
 
 export default BookingDetails;

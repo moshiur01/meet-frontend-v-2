@@ -22,7 +22,14 @@ function Routers() {
       <Route path="/register" element={<Signup />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/services" element={<Services />} />
-      <Route path="/booking-details/:id" element={<BookingDetails />} />
+      <Route
+        path="/booking-details/:id"
+        element={
+          <ProtectedRoute allowedRoles={["patient"]}>
+            <BookingDetails />
+          </ProtectedRoute>
+        }
+      />
       <Route
         path="/user/profile"
         element={
