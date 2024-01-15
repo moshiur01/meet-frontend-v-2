@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import toast from "react-hot-toast";
 import Loading from "../../components/Loader/Loading";
 import {
   useAddTimeSlotMutation,
@@ -67,12 +68,15 @@ const AddTimeSlot = ({ doctorId }) => {
 
       try {
         const res = await addTimeSlot({ ...backendData }).unwrap();
-        console.log(res);
+
+        res !== undefined &&
+          res?.id &&
+          toast.success("Time slot created successfully");
       } catch (error) {
         console.log(error);
       }
     } else {
-      console.log("Please select all fields.");
+      toast.error("Please select all fields.");
     }
   };
 

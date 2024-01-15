@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useAddDoctorServiceMutation } from "../../redux/api/doctorServiceApi";
 
 const AddService = (props) => {
@@ -23,16 +24,15 @@ const AddService = (props) => {
         slotId: selectedTimeSlot,
         doctorId,
       };
-      console.log(backendData);
 
       try {
         const res = await addDoctorService({ ...backendData }).unwrap();
-        console.log(res);
+        res?.id && toast.success("Doctor Service data added successfully");
       } catch (error) {
         console.log(error);
       }
     } else {
-      console.log("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
     }
   };
 

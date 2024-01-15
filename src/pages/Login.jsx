@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 
+import toast from "react-hot-toast";
 import { useUserLoginMutation } from "../redux/api/authApi";
 import { storeUserInfo } from "../services/auth.service";
 
@@ -26,17 +27,16 @@ const Login = () => {
   const [userLogin] = useUserLoginMutation();
   //*api call for login
   const handleLogin = async () => {
-    window.alert("Please wait...");
     try {
       const res = await userLogin({ ...formData }).unwrap();
       // console.log(res);
       if (res?.accessToken) {
-        window.alert("User logged in successfully!");
+        toast.success("User logged in successfully!");
         storeUserInfo({ accessToken: res?.accessToken });
 
         navigate("/home");
       } else {
-        window.alert("User email or password is incorrect");
+        toast.error("User email or password is incorrect");
       }
     } catch (err) {
       console.log(err);

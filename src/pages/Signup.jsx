@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import singUpImg from "../assets/images/Sign-up-v2.png";
@@ -65,7 +66,7 @@ const Signup = () => {
     try {
       const res = await addPatient(formData);
       console.log(res);
-      res?.data?.id && window.alert("patient data inserted successfully");
+      res?.data?.id && toast.success("patient data inserted successfully");
       navigate("/login");
     } catch (error) {
       console.log(error);
