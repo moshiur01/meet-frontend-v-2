@@ -5,7 +5,7 @@ const PATIENT_URL = "/patients";
 
 const patientApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    //create a new patient data
+    //*create a new patient data
     addPatient: build.mutation({
       query: (data) => ({
         url: "/patients/create-patient",
@@ -15,7 +15,7 @@ const patientApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.patient],
     }),
 
-    //get single patient
+    //*get single patient
     patient: build.query({
       query: (id) => ({
         url: `${PATIENT_URL}/${id}`,
@@ -24,7 +24,7 @@ const patientApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.patient],
     }),
 
-    //update patient data
+    //*update patient data
 
     updatePatient: build.mutation({
       query: (data) => ({

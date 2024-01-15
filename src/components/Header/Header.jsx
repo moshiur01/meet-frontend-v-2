@@ -29,7 +29,7 @@ function Header() {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
 
-  const { id, photo } = getUserInfo();
+  const { id, photo, role } = getUserInfo();
 
   console.log(photo);
   // console.log(id, role, name);
@@ -85,10 +85,39 @@ function Header() {
                 </li>
               ))}
 
-              {id && (
+              {id && role === "patient" && (
                 <li>
                   <NavLink
                     to="/user/profile"
+                    className={(navClass) =>
+                      navClass.isActive
+                        ? "text-primaryColor text-[16px] leading-7 font-[600]"
+                        : "text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor"
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+              )}
+
+              {id && role === "doctor" && (
+                <li>
+                  <NavLink
+                    to="/doctors/profile"
+                    className={(navClass) =>
+                      navClass.isActive
+                        ? "text-primaryColor text-[16px] leading-7 font-[600]"
+                        : "text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor"
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+              )}
+              {id && role === "admin" && (
+                <li>
+                  <NavLink
+                    to="/admin/profile"
                     className={(navClass) =>
                       navClass.isActive
                         ? "text-primaryColor text-[16px] leading-7 font-[600]"
