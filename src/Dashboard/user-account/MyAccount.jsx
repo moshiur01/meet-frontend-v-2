@@ -16,6 +16,7 @@ const MyAccount = () => {
   const handleLogout = () => {
     removeUserInfo(authKey);
     navigate("/login");
+    window.location.reload();
   };
 
   //active tab state

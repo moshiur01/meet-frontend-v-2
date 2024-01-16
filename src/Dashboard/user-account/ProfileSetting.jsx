@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { bloodGroupOptions } from "../../constrains/Global";
 import { useUpdatePatientMutation } from "../../redux/api/patient/patientApi";
@@ -74,7 +75,7 @@ const ProfileSetting = ({ user }) => {
       body: formData,
     }).unwrap();
 
-    res.id && window.alert("Profile Updated successfully");
+    res.id && toast.success("Profile Updated successfully");
     // console.log(res);
     // console.log(formData);
   };

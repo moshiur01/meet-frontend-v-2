@@ -58,7 +58,6 @@ const Signup = () => {
   };
 
   //*signUp api handler
-
   const [addPatient] = useAddPatientMutation();
   const submitHandler = async (e) => {
     e.preventDefault();
