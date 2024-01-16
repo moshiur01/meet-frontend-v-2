@@ -14,7 +14,7 @@ export const AppointmentApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.patientBookAppointment],
     }),
 
-    doctorServices: build.query({
+    getAllAppointments: build.query({
       query: (arg) => {
         return {
           url: APPOINTMENT_URL,
@@ -24,7 +24,7 @@ export const AppointmentApi = baseApi.injectEndpoints({
       },
       transformResponse: (response, meta) => {
         return {
-          timeSlot: response,
+          appointments: response,
           meta,
         };
       },
@@ -39,9 +39,17 @@ export const AppointmentApi = baseApi.injectEndpoints({
     //   providesTags: [tagTypes.doctorService],
     // }),
 
-    singleDoctorService: build.query({
+    singleAppointment: build.query({
       query: (id) => ({
         url: `${APPOINTMENT_URL}/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.patientBookAppointment],
+    }),
+
+    getPatientAppointment: build.query({
+      query: (id) => ({
+        url: `${APPOINTMENT_URL}/patient/${id}`,
         method: "GET",
       }),
       providesTags: [tagTypes.patientBookAppointment],
@@ -56,20 +64,22 @@ export const AppointmentApi = baseApi.injectEndpoints({
     //   invalidatesTags: [tagTypes.doctorService],
     // }),
 
-    // deleteTimeSlot: build.mutation({
-    //   query: (id) => ({
-    //     url: `${DOCTOR_SERVICE_URL}/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [tagTypes.doctorService],
-    // }),
+    cancelAppointment: build.mutation({
+      query: (id) => ({
+        url: `${APPOINTMENT_URL}/cancel-appointment/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: [tagTypes.patientBookAppointment],
+    }),
   }),
 });
 
 export const {
   useBookAppointmentMutation,
-  useDoctorServicesQuery,
-  useSingleDoctorServiceQuery,
+  useGetAllAppointmentsQuery,
+  useGetPatientAppointmentQuery,
+  useSingleAppointmentQuery,
+  useCancelAppointmentMutation,
   //   useTimeSlotForDoctorQuery,
   //   useUpdateTimeSlotMutation,
   //   useDeleteTimeSlotMutation,

@@ -1,20 +1,44 @@
-import { useParams } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
+import { useBookAppointmentMutation } from "../../redux/api/appointmentApi";
 import { useSingleDoctorServiceQuery } from "../../redux/api/doctorServiceApi";
+import { getUserInfo } from "../../services/auth.service";
 
 const BookingDetails = () => {
   const { id: doctorId } = useParams();
+
+  const navigate = useNavigate();
 
   const { data: DoctorServiceData, isLoading: loading } =
     useSingleDoctorServiceQuery(doctorId);
 
   // console.log(DoctorServiceData);
 
-  const handleBookAppointment = (slotId, doctorServiceId, doctorId) => {
-    // Implement your booking logic here
-    console.log("Appointment booked!");
+  //*patient appointments booking api
 
-    console.log(slotId, doctorId, doctorServiceId);
+  const [bookAppointment] = useBookAppointmentMutation();
+
+  const handleBookAppointment = async (slotId, doctorServiceId, doctorId) => {
+    const { id: patientId } = getUserInfo();
+
+    const backendData = {
+      doctorId,
+      patientId,
+      slotId,
+      doctorServiceId,
+    };
+    try {
+      const res = await bookAppointment({ ...backendData }).unwrap();
+
+      console.log(res);
+
+      res?.appointment?.id && toast.success("Booking successfully");
+      navigate("/user/profile");
+    } catch (error) {
+      console.log(error);
+    }
+    // console.log(slotId, doctorId, doctorServiceId, patientId);
   };
 
   return (
@@ -34,7 +58,7 @@ const BookingDetails = () => {
                 <th className="py-2 px-4 border-b">Start Time</th>
                 <th className="py-2 px-4 border-b">End Time</th>
                 <th className="py-2 px-4 border-b">Amount</th>
-                <th className="py-2 px-4 border-b">Available Seats</th>
+                <th className="py-2 px-4 border-b">Available for Booking</th>
                 <th className="py-2 px-4 border-b">Action</th>
               </tr>
             </thead>
