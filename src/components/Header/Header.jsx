@@ -31,7 +31,7 @@ function Header() {
 
   const { id, photo, role } = getUserInfo();
 
-  console.log(photo);
+  // console.log(photo);
   // console.log(id, role, name);
 
   const handleStickyHeader = () => {

@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
+import { authKey } from "../../constrains/storageKey";
 import { useDoctorQuery } from "../../redux/api/doctorApi";
-import { getUserInfo } from "../../services/auth.service";
+import { getUserInfo, removeUserInfo } from "../../services/auth.service";
 import AddExperience from "./AddExperience";
 import AddQualification from "./AddQualification";
 import AddService from "./AddService";
@@ -19,7 +21,13 @@ const DoctorDashboard = () => {
 
   const { data: doctorData, isLoading: loading } = useDoctorQuery(id);
 
-  console.log(doctorData);
+  // console.log(doctorData);
+
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    removeUserInfo(authKey);
+    navigate("/login");
+  };
 
   return (
     <section>
@@ -105,6 +113,16 @@ const DoctorDashboard = () => {
                   >
                     Add Service
                   </button>
+                </div>
+
+                <div className="mt-[30px] md:mt-[100xp]">
+                  <button
+                    className="w-full bg-[#181A1E] p-3 text-[16px] leading-7 rounded-md font-semibold text-white"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                  {/* <button className="w-full bg-red-600 p-3 text-[16px] leading-7 rounded-md">Delete Account</button>  */}
                 </div>
               </div>
             </div>

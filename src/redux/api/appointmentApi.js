@@ -1,23 +1,23 @@
 import { tagTypes } from "../tagTypes";
 import { baseApi } from "./baseApi";
 
-const DOCTOR_SERVICE_URL = "/doctor-services";
+const APPOINTMENT_URL = "/appointments";
 
-export const DoctorServiceApi = baseApi.injectEndpoints({
+export const AppointmentApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
-    addDoctorService: build.mutation({
+    bookAppointment: build.mutation({
       query: (data) => ({
-        url: "/doctor-services/create-doctor-service",
+        url: "/appointments/book-appointment",
         method: "POST",
         data,
       }),
-      invalidatesTags: [tagTypes.doctorService],
+      invalidatesTags: [tagTypes.patientBookAppointment],
     }),
 
     doctorServices: build.query({
       query: (arg) => {
         return {
-          url: DOCTOR_SERVICE_URL,
+          url: APPOINTMENT_URL,
           method: "GET",
           params: arg,
         };
@@ -28,7 +28,7 @@ export const DoctorServiceApi = baseApi.injectEndpoints({
           meta,
         };
       },
-      providesTags: [tagTypes.doctorService],
+      providesTags: [tagTypes.patientBookAppointment],
     }),
 
     // doctorService: build.query({
@@ -41,10 +41,10 @@ export const DoctorServiceApi = baseApi.injectEndpoints({
 
     singleDoctorService: build.query({
       query: (id) => ({
-        url: `${DOCTOR_SERVICE_URL}/${id}`,
+        url: `${APPOINTMENT_URL}/${id}`,
         method: "GET",
       }),
-      providesTags: [tagTypes.doctorService],
+      providesTags: [tagTypes.patientBookAppointment],
     }),
 
     // updateTimeSlot: build.mutation({
@@ -67,10 +67,10 @@ export const DoctorServiceApi = baseApi.injectEndpoints({
 });
 
 export const {
-  useAddDoctorServiceMutation,
+  useBookAppointmentMutation,
   useDoctorServicesQuery,
   useSingleDoctorServiceQuery,
   //   useTimeSlotForDoctorQuery,
   //   useUpdateTimeSlotMutation,
   //   useDeleteTimeSlotMutation,
-} = DoctorServiceApi;
+} = AppointmentApi;

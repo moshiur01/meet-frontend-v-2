@@ -1,26 +1,19 @@
 /* eslint-disable react/prop-types */
 import { formatDate } from "../../utils/FormatDate";
 
-const DoctorAbout = ({ doctorId }) => {
-  console.log(doctorId);
+const DoctorAbout = ({ doctorData }) => {
+  // console.log(doctorData);
   return (
     <div>
       <div>
         <h3 className="text-[20px] leading-[30px] text-headingColor font-semibold flex items-center gap-2">
           About of
           <span className="text-irisBlueColor font-bold text-[24px leading-9]">
-            Moshiur Rahman
+            {doctorData?.name}
           </span>
         </h3>
 
-        <p className="text__pera">
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam
-          voluptatum dolor incidunt animi quia voluptatibus sequi ab itaque
-          magni qui, esse, fugiat maxime repudiandae assumenda harum praesentium
-          commodi maiores fuga dignissimos tempore obcaecati! Ipsa dolore
-          molestiae, neque cupiditate consectetur aliquid quos suscipit quaerat
-          possimus dicta perspiciatis architecto nobis assumenda sint?
-        </p>
+        <p className="text__pera">{doctorData?.about}</p>
       </div>
       <div className="mt-12">
         <h3 className="text-[20px] leading-[30px] text-headingColor font-semibold">

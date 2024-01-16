@@ -25,7 +25,7 @@ function Routers() {
       <Route
         path="/booking-details/:id"
         element={
-          <ProtectedRoute allowedRoles={["patient"]}>
+          <ProtectedRoute allowedRoles={["patient", "doctor"]}>
             <BookingDetails />
           </ProtectedRoute>
         }

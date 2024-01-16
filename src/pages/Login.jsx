@@ -33,7 +33,7 @@ const Login = () => {
       if (res?.accessToken) {
         toast.success("User logged in successfully!");
         storeUserInfo({ accessToken: res?.accessToken });
-
+        window.location.reload();
         navigate("/home");
       } else {
         toast.error("User email or password is incorrect");
