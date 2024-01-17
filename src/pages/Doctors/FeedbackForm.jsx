@@ -1,17 +1,43 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
+import { useAddDoctorReviewMutation } from "../../redux/api/DoctorReviweApi";
+import { getUserInfo } from "../../services/auth.service";
 
-const FeedbackForm = () => {
+const FeedbackForm = ({ doctorId }) => {
+  // console.log(doctorId);
+
+  const { id: patientId } = getUserInfo();
+
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [reviewText, setReviewText] = useState("");
   //   console.log(rating);
 
   //*handle rating
+  const [addDoctorReview] = useAddDoctorReviewMutation();
+
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(rating, reviewText);
+    const backendData = {
+      rating: rating + 1,
+      reviewText,
+      doctorId,
+      patientId,
+    };
+
+    try {
+      const res = await addDoctorReview({ ...backendData }).unwrap();
+      console.log(res);
+
+      if (res !== undefined) {
+        toast.success("Thank you for your review");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <form action="">
@@ -34,7 +60,6 @@ const FeedbackForm = () => {
                     ? "text-yellowColor"
                     : "text-gray-400"
                 }
-              
               bg-transparent border-none outline-none text-[22px] cursor-pointer
               `}
                 onClick={() => setRating(index)}
@@ -65,6 +90,7 @@ const FeedbackForm = () => {
           rows="5"
           placeholder="Enter your message"
           onChange={(e) => setReviewText(e.target.value)}
+          required
         ></textarea>
       </div>
 

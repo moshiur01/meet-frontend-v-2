@@ -17,7 +17,7 @@ const SidePanel = ({ id }) => {
     <>
       {loading && <Loading />}
 
-      {!loading && DoctorServiceData && (
+      {!loading && DoctorServiceData.length != 0 && (
         <div className=" shadow-panelShadow p-3 lg:p-5 rounded-md">
           <div className="flex items-center justify-between">
             <p className="text__pera mt-0 font-semibold">Appointment Fee</p>

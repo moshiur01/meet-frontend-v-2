@@ -8,10 +8,9 @@ import DoctorFeedback from "./DoctorFeedback";
 import SidePanel from "./SidePanel";
 
 const DoctorsDetails = () => {
-  const id = useParams();
-  // console.log(id);
+  const { id } = useParams();
 
-  const { data: doctorData, isLoading } = useDoctorQuery(id?.id);
+  const { data: doctorData, isLoading } = useDoctorQuery(id);
 
   // console.log(doctorData);
 
@@ -87,7 +86,9 @@ const DoctorsDetails = () => {
               <div className="mt-[50px]">
                 {tab === "about" && <DoctorAbout doctorData={doctorData} />}
 
-                {tab === "feedback" && <DoctorFeedback doctorId={id} />}
+                {tab === "feedback" && (
+                  <DoctorFeedback doctorId={doctorData?.id} />
+                )}
               </div>
             </div>
             <div>

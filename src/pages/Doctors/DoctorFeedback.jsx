@@ -1,45 +1,75 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
 import TempUser from "../../assets/images/tempUser.jpg";
-import { formatDate } from "../../utils/FormatDate";
+import Loading from "../../components/Loader/Loading";
+import { useSpecificDoctorReviewsQuery } from "../../redux/api/DoctorReviweApi";
+import { getUserInfo } from "../../services/auth.service";
 import FeedbackForm from "./FeedbackForm";
 
-const DoctorFeedback = () => {
+const DoctorFeedback = ({ doctorId }) => {
   const [showFeedbackForm, setShowFeedbackForm] = useState(false);
+  const { id: userId } = getUserInfo();
+
+  //* get specific doctor review api call
+  const { data: doctorReviewData, isLoading } =
+    useSpecificDoctorReviewsQuery(doctorId);
+
+  console.log(doctorReviewData);
 
   return (
-    <div>
-      <div className="mb-[50px]">
-        <h4 className="text-[20px] leading-[30px] font-bold text-headingColor mb-[30px]">
-          All Reviews (10)
-        </h4>
+    <div className="">
+      {isLoading && <Loading />}
 
-        <div className="flex justify-between gap-10 mb-[30px]">
-          <div className="flex gap-3 ">
-            <figure className="w-14 h-10  border  border-black rounded-full">
-              <img className="w-full" src={TempUser} alt="" />
-            </figure>
-            <div>
-              <h5 className="text-[16px] leading-6  text-primaryColor font-bold">
-                Ali Ahmed
-              </h5>
-              <p className="text-[14px] leading-6 text-textColor">
-                {formatDate("02-14-2018")}
-              </p>
-              <p className="text__pera mt-3 font-medium text-[15px]">
-                Good services, highly recommended
-              </p>
-            </div>
-          </div>
+      {!isLoading && doctorReviewData.length === 0 && (
+        <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor  ">
+          The doctor has not received any feedback yet.
+        </h2>
+      )}
 
-          <div className="flex gap-1">
-            {[...Array(5).keys()].map((_, index) => (
-              <AiFillStar key={index} color="#0067FF" />
+      {!isLoading && (
+        <div className="mb-[50px]">
+          <h4 className="text-[20px] leading-[30px] font-bold text-headingColor mb-[30px]">
+            All Reviews ({doctorReviewData?.length})
+          </h4>
+
+          <div
+            className="reviews-container"
+            style={{ maxHeight: "200px", overflowY: "auto" }}
+          >
+            {doctorReviewData?.map((singleReview) => (
+              <div key={singleReview?.id} className="mb-4">
+                <div className="flex gap-3">
+                  <figure className="w-10 h-10 border border-black rounded-full">
+                    <img
+                      className="w-full"
+                      src={singleReview?.patient?.photo || TempUser}
+                      alt=""
+                    />
+                  </figure>
+                  <div>
+                    <h5 className="text-[16px] leading-6 text-primaryColor font-bold">
+                      {singleReview?.patient?.name || "Unknown Author"}
+                    </h5>
+                    <div className="flex gap-1">
+                      {[...Array(singleReview?.rating).keys()].map(
+                        (_, index) => (
+                          <AiFillStar key={index} color="#FEB60D" />
+                        )
+                      )}
+                    </div>
+                    <p className="text__pera mt-3 font-medium text-[15px]">
+                      {singleReview?.reviewText || "No comment available"}
+                    </p>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
         </div>
-      </div>
-      {!showFeedbackForm && (
+      )}
+
+      {!showFeedbackForm && userId && (
         <div className="text-center">
           <button className="btn" onClick={() => setShowFeedbackForm(true)}>
             Give Feedback
@@ -47,7 +77,7 @@ const DoctorFeedback = () => {
         </div>
       )}
 
-      {showFeedbackForm && <FeedbackForm />}
+      {showFeedbackForm && <FeedbackForm doctorId={doctorId} />}
     </div>
   );
 };

@@ -3,7 +3,6 @@ import DoctorCard from "../../components/Doctors/DoctorCard";
 import Loading from "../../components/Loader/Loading";
 import UserReviewHomeList from "../../components/userReviewHome/UserReviewHomeList";
 import { useDoctorsQuery } from "../../redux/api/doctorApi";
-
 const Doctors = () => {
   const query = {};
 
@@ -17,6 +16,7 @@ const Doctors = () => {
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
+  query["searchTerm"] = searchTerm;
 
   const { data, isLoading } = useDoctorsQuery({ ...query });
 
@@ -26,6 +26,7 @@ const Doctors = () => {
 
   return (
     <>
+      {/* search  */}
       <section className="bg-[#fff9ea]">
         <div className="container text-center">
           <h2 className="heading">Find a Doctor</h2>
@@ -34,6 +35,9 @@ const Doctors = () => {
               type="search"
               className="py-4 pl-4 pr-2 bg-transparent w-full focus:outline-none cursor-pointer placeholder:text-textColor"
               placeholder="Search a doctor"
+              onChange={(e) => {
+                setSearchTerm(e.target.value);
+              }}
             />
             <button className="btn mt-0 rounded-[0px] rounded-r-md">
               Search

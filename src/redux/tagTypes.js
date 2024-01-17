@@ -9,6 +9,7 @@ export const tagTypes = {
   doctorCreateService: "doctorCreateService",
   patientBookAppointment: "PatientBookAppointment",
   payment: "payment",
+  doctorReview: "doctorReview",
 };
 
 export const tagTypesList = [
@@ -22,4 +23,5 @@ export const tagTypesList = [
   tagTypes.doctorCreateService,
   tagTypes.patientBookAppointment,
   tagTypes.payment,
+  tagTypes.doctorReview,
 ];
