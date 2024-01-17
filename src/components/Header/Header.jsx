@@ -29,7 +29,7 @@ function Header() {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
 
-  const { id, photo, role } = getUserInfo();
+  const { id, name, role } = getUserInfo();
 
   // console.log(photo);
   // console.log(id, role, name);
@@ -63,9 +63,11 @@ function Header() {
       <div className="container">
         <div className="flex items-center justify-between">
           {/* logo  */}
-          <div>
-            <img src={logo} alt="" className="lg:w-40 sm:w-28" />
-          </div>
+          <Link to="/home">
+            <div>
+              <img src={logo} alt="" className="lg:w-40 sm:w-28" />
+            </div>
+          </Link>
 
           {/* navbar menu  */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
@@ -137,13 +139,14 @@ function Header() {
             {id ? (
               <>
                 <div className="">
-                  <Link to="/">
-                    <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                  <Link to="/home">
+                    {/* <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
                       <img src={photo} alt="" className="w-full rounded-full" />
-                    </figure>
+                    </figure> */}
+
+                    <h1 className="text-xl"> {name?.split(" ")[0]}</h1>
                   </Link>
                 </div>
-                {/* <h1>{name}</h1> */}
               </>
             ) : (
               /* login button */
