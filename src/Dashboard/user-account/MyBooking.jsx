@@ -1,4 +1,5 @@
 /* eslint-disable no-undef */
+import toast from "react-hot-toast";
 import Loading from "../../components/Loader/Loading";
 import {
   useCancelAppointmentMutation,
@@ -37,14 +38,13 @@ const MyBooking = () => {
       // Make API call to cancel appointment
       const res = await cancelAppointment(appointmentId);
 
-      console.log(res);
+      // console.log(res);
 
-      // if (response.isSuccess) {
-      //   console.log('Appointment canceled successfully!');
-      //   // Implement any additional logic or update state as needed
-      // } else {
-      //   console.error('Failed to cancel appointment');
-      // }
+      if (res?.data?.appointment?.id) {
+        toast.success("Appointment canceled successfully!");
+      } else {
+        toast.error("Failed to cancel appointment");
+      }
     } catch (error) {
       console.error("Error during cancelAppointment:", error);
     }
@@ -131,7 +131,7 @@ const MyBooking = () => {
                     </td>
 
                     <td className="py-2 px-4 border-b">
-                      {singleBooking?.medicine === null
+                      {(singleBooking?.medicine === null) | "canceled"
                         ? "Not Available"
                         : singleBooking?.medicine?.status}
                     </td>
@@ -155,7 +155,7 @@ const MyBooking = () => {
           </div>
         )}
 
-        {!isLoading && patientAppointmentData.length === 0 && (
+        {!isLoading && patientAppointmentData?.length === 0 && (
           <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor  ">
             You did not book any appointment yet!
           </h2>

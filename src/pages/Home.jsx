@@ -32,7 +32,9 @@ const Home = () => {
                   filled with vitality.
                 </p>
 
-                <button className="btn ">Request An Appointment</button>
+                <Link to="/doctors">
+                  <button className="btn ">Request An Appointment</button>
+                </Link>
               </div>
 
               {/* hero counter  */}

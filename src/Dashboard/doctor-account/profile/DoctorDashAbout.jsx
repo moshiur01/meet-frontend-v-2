@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
-import { formatDate } from "../../utils/FormatDate";
+import { formatDate } from "../../../utils/FormatDate";
 
 const DoctorDashAbout = ({ DoctorData }) => {
-  console.log(DoctorData);
+  // console.log(DoctorData);
   return (
     <div>
       <div>

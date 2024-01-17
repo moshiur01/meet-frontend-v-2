@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import starIcon from "../../assets/images/Star.png";
+import starIcon from "../../../assets/images/Star.png";
 import DoctorDashAbout from "./DoctorDashAbout";
 import DoctorDashFeedback from "./DoctorDashFeedback";
 

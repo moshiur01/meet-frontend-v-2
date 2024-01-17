@@ -55,18 +55,34 @@ export const AppointmentApi = baseApi.injectEndpoints({
       providesTags: [tagTypes.patientBookAppointment],
     }),
 
-    // updateTimeSlot: build.mutation({
-    //   query: (data) => ({
-    //     url: `${DOCTOR_SERVICE_URL}/${data.id}`,
-    //     method: "PATCH",
-    //     data: data.body,
-    //   }),
-    //   invalidatesTags: [tagTypes.doctorService],
-    // }),
+    getAppointmentsByDoctor: build.query({
+      query: (id) => ({
+        url: `${APPOINTMENT_URL}/doctor/${id}`,
+        method: "GET",
+      }),
+      providesTags: [tagTypes.patientBookAppointment],
+    }),
+
+    updateAppointment: build.mutation({
+      query: (data) => ({
+        url: `${APPOINTMENT_URL}/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.patientBookAppointment],
+    }),
 
     cancelAppointment: build.mutation({
       query: (id) => ({
         url: `${APPOINTMENT_URL}/cancel-appointment/${id}`,
+        method: "PATCH",
+      }),
+      invalidatesTags: [tagTypes.patientBookAppointment],
+    }),
+
+    finishAppointment: build.mutation({
+      query: (id) => ({
+        url: `${APPOINTMENT_URL}/finish-appointment/${id}`,
         method: "PATCH",
       }),
       invalidatesTags: [tagTypes.patientBookAppointment],
@@ -78,9 +94,9 @@ export const {
   useBookAppointmentMutation,
   useGetAllAppointmentsQuery,
   useGetPatientAppointmentQuery,
+  useGetAppointmentsByDoctorQuery,
   useSingleAppointmentQuery,
   useCancelAppointmentMutation,
-  //   useTimeSlotForDoctorQuery,
-  //   useUpdateTimeSlotMutation,
-  //   useDeleteTimeSlotMutation,
+  useFinishAppointmentMutation,
+  useUpdateAppointmentMutation,
 } = AppointmentApi;

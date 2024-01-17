@@ -66,7 +66,7 @@ const ProfileSetting = ({ user }) => {
     setPasswordShow(!passwordShow);
   };
 
-  //*signUp api handler
+  //*update data api handler
   const [updatePatient] = useUpdatePatientMutation();
 
   const submitHandler = async (e) => {

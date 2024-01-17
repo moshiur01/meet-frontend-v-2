@@ -39,7 +39,7 @@ function Routers() {
         }
       />
       <Route
-        path="/doctors/profile"
+        path="/doctor/profile"
         element={
           <ProtectedRoute allowedRoles={["doctor"]}>
             <DoctorDashboard />

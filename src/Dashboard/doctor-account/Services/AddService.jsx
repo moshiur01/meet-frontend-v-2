@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useAddDoctorServiceMutation } from "../../redux/api/doctorServiceApi";
+import { useAddDoctorServiceMutation } from "../../../redux/api/doctorServiceApi";
 
 const AddService = (props) => {
   const { doctorId, timeSlot: timeData } = props;

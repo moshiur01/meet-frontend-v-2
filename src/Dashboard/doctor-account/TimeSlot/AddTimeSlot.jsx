@@ -1,11 +1,11 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import toast from "react-hot-toast";
-import Loading from "../../components/Loader/Loading";
+import Loading from "../../../components/Loader/Loading";
 import {
   useAddTimeSlotMutation,
   useTimeSlotForDoctorQuery,
-} from "../../redux/api/timeSlotByDoctorApi";
+} from "../../../redux/api/timeSlotByDoctorApi";
 
 const AddTimeSlot = ({ doctorId }) => {
   console.log(doctorId);

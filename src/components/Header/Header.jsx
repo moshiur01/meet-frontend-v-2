@@ -105,7 +105,7 @@ function Header() {
               {id && role === "doctor" && (
                 <li>
                   <NavLink
-                    to="/doctors/profile"
+                    to="/doctor/profile"
                     className={(navClass) =>
                       navClass.isActive
                         ? "text-primaryColor text-[16px] leading-7 font-[600]"
@@ -139,7 +139,7 @@ function Header() {
             {id ? (
               <>
                 <div className="">
-                  <Link to="/home">
+                  <Link to={`/${role}/profile`}>
                     {/* <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
                       <img src={photo} alt="" className="w-full rounded-full" />
                     </figure> */}

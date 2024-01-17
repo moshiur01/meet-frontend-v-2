@@ -1,21 +1,14 @@
-/* eslint-disable react/prop-types */
-import { useState } from "react";
 import { AiFillStar } from "react-icons/ai";
-import TempUser from "../../assets/images/tempUser.jpg";
-import Loading from "../../components/Loader/Loading";
-import { useSpecificDoctorReviewsQuery } from "../../redux/api/DoctorReviweApi";
-import { getUserInfo } from "../../services/auth.service";
-import FeedbackForm from "./FeedbackForm";
-
-const DoctorFeedback = ({ doctorId }) => {
-  const [showFeedbackForm, setShowFeedbackForm] = useState(false);
-  const { id: userId } = getUserInfo();
+import TempUser from "../../../assets/images/tempUser.jpg";
+import Loading from "../../../components/Loader/Loading";
+import { useSpecificDoctorReviewsQuery } from "../../../redux/api/DoctorReviweApi";
+import { getUserInfo } from "../../../services/auth.service";
+const DoctorDashFeedback = () => {
+  const { id: doctorId } = getUserInfo();
 
   //* get specific doctor review api call
   const { data: doctorReviewData, isLoading } =
     useSpecificDoctorReviewsQuery(doctorId);
-
-  // console.log(doctorReviewData);
 
   return (
     <div className="">
@@ -23,7 +16,7 @@ const DoctorFeedback = ({ doctorId }) => {
 
       {!isLoading && doctorReviewData.length === 0 && (
         <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor  ">
-          The doctor has not received any feedback yet.
+          You have not received any feedback yet.
         </h2>
       )}
 
@@ -68,18 +61,8 @@ const DoctorFeedback = ({ doctorId }) => {
           </div>
         </div>
       )}
-
-      {!showFeedbackForm && userId && (
-        <div className="text-center">
-          <button className="btn" onClick={() => setShowFeedbackForm(true)}>
-            Give Feedback
-          </button>
-        </div>
-      )}
-
-      {showFeedbackForm && <FeedbackForm doctorId={doctorId} />}
     </div>
   );
 };
 
-export default DoctorFeedback;
+export default DoctorDashFeedback;
