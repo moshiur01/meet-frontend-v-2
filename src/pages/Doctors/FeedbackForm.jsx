@@ -34,6 +34,7 @@ const FeedbackForm = ({ doctorId }) => {
 
       if (res !== undefined) {
         toast.success("Thank you for your review");
+        window.location.reload();
       }
     } catch (error) {
       console.log(error);

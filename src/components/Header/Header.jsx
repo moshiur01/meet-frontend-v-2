@@ -144,7 +144,11 @@ function Header() {
                       <img src={photo} alt="" className="w-full rounded-full" />
                     </figure> */}
 
-                    <h1 className="text-xl"> {name?.split(" ")[0]}</h1>
+                    <h1 className="text-xl ">
+                      {" "}
+                      <span className="font-bold">Welcome: </span>
+                      {name?.split(" ")[0]}
+                    </h1>
                   </Link>
                 </div>
               </>

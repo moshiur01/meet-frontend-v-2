@@ -59,9 +59,15 @@ const Signup = () => {
 
   //*signUp api handler
   const [addPatient] = useAddPatientMutation();
+
   const submitHandler = async (e) => {
     e.preventDefault();
 
+    // Check if the email contains "@gmail.com"
+    if (!formData.email.includes("@gmail.com")) {
+      toast.error("Invalid Email");
+      return;
+    }
     try {
       const res = await addPatient(formData);
       console.log(res);
