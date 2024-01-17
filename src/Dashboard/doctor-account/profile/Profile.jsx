@@ -3,6 +3,7 @@ import { useState } from "react";
 import starIcon from "../../../assets/images/Star.png";
 import DoctorDashAbout from "./DoctorDashAbout";
 import DoctorDashFeedback from "./DoctorDashFeedback";
+import EditProfile from "./EditProfile";
 
 const Profile = ({ doctorData }) => {
   const [tab, setTab] = useState("about");
@@ -66,12 +67,24 @@ const Profile = ({ doctorData }) => {
               >
                 Feedback
               </button>
+
+              <button
+                onClick={() => setTab("editProfile")}
+                className={`${
+                  tab === "editProfile" &&
+                  "border-b border-solid border-primaryColor"
+                } py-2 px-5 mr-5 text-[16px] leading-7 text-headingColor font-semibold`}
+              >
+                Edit Profile
+              </button>
             </div>
 
             <div className="mt-[50px]">
               {tab === "about" && <DoctorDashAbout DoctorData={doctorData} />}
 
               {tab === "feedback" && <DoctorDashFeedback />}
+
+              {tab === "editProfile" && <EditProfile doctorData={doctorData} />}
             </div>
           </div>
         </div>

@@ -28,6 +28,10 @@ const Login = () => {
   //*api call for login
   const handleLogin = async () => {
     try {
+      toast.loading("please wait...", {
+        duration: 2500,
+      });
+
       const res = await userLogin({ ...formData }).unwrap();
       // console.log(res);
       if (res?.accessToken) {
