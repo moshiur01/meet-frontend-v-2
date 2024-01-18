@@ -3,7 +3,6 @@
 import { DatePicker, message } from "antd";
 import { useState } from "react";
 import { useAddDoctorEducationMutation } from "../../../redux/api/doctorEducationApi";
-import EditQualification from "./EditQualification";
 import ViewQualification from "./ViewQualification";
 
 const AddQualification = ({ doctorId }) => {
@@ -155,24 +154,12 @@ const AddQualification = ({ doctorId }) => {
             >
               View
             </button>
-
-            <button
-              onClick={() => setTab("editEducation")}
-              className={`${
-                tab === "editEducation" &&
-                "border-b border-solid border-primaryColor"
-              } py-2 px-5 mr-5 text-[16px] leading-7 text-headingColor font-semibold`}
-            >
-              Edit
-            </button>
           </div>
 
           <div className="mt-[50px]">
             {tab === "viewEducation" && (
               <ViewQualification doctorId={doctorId} />
             )}
-
-            {tab === "editEducation" && <EditQualification />}
           </div>
         </div>
       </div>

@@ -2,7 +2,7 @@
 import { formatDate } from "../../../utils/FormatDate";
 
 const DoctorDashAbout = ({ DoctorData }) => {
-  console.log(DoctorData);
+  // console.log(DoctorData);
   return (
     <div>
       <div>
@@ -50,18 +50,6 @@ const DoctorDashAbout = ({ DoctorData }) => {
 
         <ul className="grid sm:grid-cols-2 gap-[30px] pt-4 md:p-5">
           {/* experience mapper */}
-
-          <li className="p-4 rounded bg-[#fff9ea]">
-            <span className="text-yellowColor text-[15px] leading-6 font-semibold">
-              {formatDate("06-23-2014")} - {formatDate("06-23-2016")}
-            </span>
-            <p className="text-[16px] leading-6 font-medium text-textColor">
-              Sr. Surgeon
-            </p>
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
 
           <li className="p-4 rounded bg-[#fff9ea]">
             <span className="text-yellowColor text-[15px] leading-6 font-semibold">

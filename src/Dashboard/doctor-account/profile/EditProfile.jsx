@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { message } from "antd";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useUpdateDoctorMutation } from "../../../redux/api/doctorApi";
 import uploadImage from "../../../utils/UploadImageToCloudinary";
@@ -71,15 +71,12 @@ const EditProfile = ({ doctorData }) => {
   };
 
   //*handle update doctor data api
-
   const [updateDoctor] = useUpdateDoctorMutation();
   const submitHandler = async (e) => {
     e.preventDefault();
 
     if (previewUrl) {
-      toast.loading("please wait...", {
-        duration: 2500,
-      });
+      message.loading("please wait...");
 
       const uploadImageLink = await uploadImage(formData?.photo);
 
@@ -91,20 +88,19 @@ const EditProfile = ({ doctorData }) => {
         id: doctorData?.id,
         body: formData,
       }).unwrap();
-      res.id && toast.success("Profile Updated successfully");
+      res?.data?.id && message.success("Profile Updated successfully");
     }
 
     if (!previewUrl) {
-      toast.loading("please wait...", {
-        duration: 2500,
-      });
+      message.loading("please wait...");
 
       const res = await updateDoctor({
         id: doctorData?.id,
         body: formData,
       });
+      // console.log(res);
 
-      res.id && toast.success("Profile Updated successfully");
+      res?.data?.id && message.success("Profile Updated successfully");
     }
   };
 

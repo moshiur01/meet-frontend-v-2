@@ -19,6 +19,14 @@ const ViewQualification = ({ doctorId }) => {
   const [editIndex, setEditIndex] = useState(-1);
   const [editEducationId, setEditEducationId] = useState(null);
 
+  //store the form data
+  const [qualificationData, setQualificationData] = useState({
+    degreeName: "",
+    universityName: "",
+    from: "",
+    to: "",
+  });
+
   const startEditing = (index, educationId) => {
     setEditIndex(index);
     setEditEducationId(educationId);
@@ -36,14 +44,6 @@ const ViewQualification = ({ doctorId }) => {
     setEditIndex(-1);
     setEditEducationId(null);
   };
-
-  //store the form data
-  const [qualificationData, setQualificationData] = useState({
-    degreeName: "",
-    universityName: "",
-    from: "",
-    to: "",
-  });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -266,7 +266,6 @@ const ViewQualification = ({ doctorId }) => {
           ))}
         </ul>
       )}
-      {/* map will done here */}
     </div>
   );
 };
