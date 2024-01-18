@@ -212,6 +212,7 @@ const EditProfile = ({ doctorData }) => {
           <textarea
             type="text"
             name="bio"
+            rows={3}
             placeholder="Enter Your Bio"
             value={formData?.bio}
             onChange={handleInputChange}
@@ -224,6 +225,7 @@ const EditProfile = ({ doctorData }) => {
           <textarea
             type="text"
             name="about"
+            rows={5}
             placeholder="Write something about yourself"
             value={formData?.about}
             onChange={handleInputChange}

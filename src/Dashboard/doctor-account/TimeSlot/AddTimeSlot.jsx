@@ -1,14 +1,16 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { MdDeleteForever } from "react-icons/md";
 import Loading from "../../../components/Loader/Loading";
 import {
   useAddTimeSlotMutation,
+  useDeleteTimeSlotMutation,
   useTimeSlotForDoctorQuery,
 } from "../../../redux/api/timeSlotByDoctorApi";
 
 const AddTimeSlot = ({ doctorId }) => {
-  console.log(doctorId);
+  // console.log(doctorId);
 
   const [selectedDay, setSelectedDay] = useState("");
 
@@ -83,8 +85,23 @@ const AddTimeSlot = ({ doctorId }) => {
   //*api for show time slot data
   const { data: timeSlotData, isLoading: loading } =
     useTimeSlotForDoctorQuery(doctorId);
-
   // console.log(timeSlotData);
+
+  //*api for delete time slot data
+
+  const [deleteTimeSlot] = useDeleteTimeSlotMutation();
+  const handleDeleteTimeSlot = async (timeSlotId) => {
+    try {
+      const res = await deleteTimeSlot(timeSlotId);
+      if (res?.data?.id) {
+        toast.success("Time slot deleted successfully");
+      } else {
+        toast.error("Failed to delete time slot");
+      }
+    } catch (error) {
+      console.error("Error deleting time slot:", error);
+    }
+  };
 
   return (
     <>
@@ -95,8 +112,19 @@ const AddTimeSlot = ({ doctorId }) => {
           Your Taken Date and Time:
           <ol type="1" className="mt-8">
             {timeSlotData?.map((timeSlot) => (
-              <li key={timeSlot?.id} className="text__pera ">
-                {timeSlot?.day}, {timeSlot?.startTime} - {timeSlot?.EndTime}
+              <li
+                key={timeSlot?.id}
+                className="text__pera flex items-center justify-between"
+              >
+                <span>
+                  {timeSlot?.day}, {timeSlot?.startTime} - {timeSlot?.EndTime}
+                </span>
+                <button
+                  onClick={() => handleDeleteTimeSlot(timeSlot?.id)}
+                  className="text-red-500 hover:text-red-700 focus:outline-none"
+                >
+                  <MdDeleteForever />
+                </button>
               </li>
             ))}
           </ol>

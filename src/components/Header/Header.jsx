@@ -29,7 +29,8 @@ function Header() {
   const headerRef = useRef(null);
   const menuRef = useRef(null);
 
-  const { id, name, role } = getUserInfo();
+  // eslint-disable-next-line no-unused-vars
+  const { id, name, photo, role } = getUserInfo();
 
   // console.log(photo);
   // console.log(id, role, name);
@@ -140,15 +141,16 @@ function Header() {
               <>
                 <div className="">
                   <Link to={`/${role}/profile`}>
-                    {/* <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
+                    <figure className="w-[35px] h-[35px] rounded-full cursor-pointer">
                       <img src={photo} alt="" className="w-full rounded-full" />
-                    </figure> */}
+                    </figure>
 
-                    <h1 className="text-xl ">
+                    {/* <h1 className="text-xl ">
                       {" "}
                       <span className="font-bold">Welcome: </span>
                       {name?.split(" ")[0]}
-                    </h1>
+                     
+                    </h1> */}
                   </Link>
                 </div>
               </>
