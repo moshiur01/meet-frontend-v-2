@@ -162,12 +162,12 @@ const DoctorDashboard = () => {
 
               {activeTab === "qualification" && (
                 <div>
-                  <AddQualification />
+                  <AddQualification doctorId={doctorData?.id} />
                 </div>
               )}
               {activeTab === "experience" && (
                 <div>
-                  <AddExperience />
+                  <AddExperience doctorId={doctorData?.id} />
                 </div>
               )}
               {activeTab === "timeSlot" && (
