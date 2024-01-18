@@ -2,7 +2,7 @@
 import { formatDate } from "../../../utils/FormatDate";
 
 const DoctorDashAbout = ({ DoctorData }) => {
-  // console.log(DoctorData);
+  console.log(DoctorData);
   return (
     <div>
       <div>
@@ -21,38 +21,25 @@ const DoctorDashAbout = ({ DoctorData }) => {
         </h3>
         {/* map will done here */}
         <ul className="pt-4 md:p-5">
-          {/* qualification one  */}
-          <li className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]">
-            <div>
-              <span className="text-irisBlueColor text-[15px] leading-6 font-semibold">
-                {formatDate("06-23-2014")} - {formatDate("06-23-2016")}
-              </span>
-              <p className="text-[16px] leading-6 font-medium text-textColor">
-                PHD in Surgeon
+          {DoctorData?.educations?.map((education) => (
+            <li
+              key={education?.id}
+              className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]"
+            >
+              <div>
+                <span className="text-irisBlueColor text-[15px] leading-6 font-semibold">
+                  {formatDate(education?.from)} - {formatDate(education?.to)}
+                </span>
+                <p className="text-[16px] leading-6 font-medium text-textColor">
+                  {education?.degreeName}
+                </p>
+              </div>
+
+              <p className="text-[14px] leading-5 font-medium text-textColor">
+                {education?.universityName}
               </p>
-            </div>
-
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
-
-          {/* qualification two  */}
-
-          <li className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]">
-            <div>
-              <span className="text-irisBlueColor text-[15px] leading-6 font-semibold">
-                {formatDate("12-04-2010")} - {formatDate("12-04-2014")}
-              </span>
-              <p className="text-[16px] leading-6 font-medium text-textColor">
-                PHD in Surgeon
-              </p>
-            </div>
-
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
+            </li>
+          ))}
         </ul>
       </div>
 

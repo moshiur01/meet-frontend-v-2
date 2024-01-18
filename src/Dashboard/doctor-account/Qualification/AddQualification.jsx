@@ -1,21 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
+import { DatePicker, message } from "antd";
 import { useState } from "react";
+import { useAddDoctorEducationMutation } from "../../../redux/api/doctorEducationApi";
+import EditQualification from "./EditQualification";
+import ViewQualification from "./ViewQualification";
 
 const AddQualification = ({ doctorId }) => {
+  const [tab, setTab] = useState("viewEducation");
+
   const [qualificationData, setQualificationData] = useState({
     degreeName: "",
     universityName: "",
-    fromDate: {
-      month: "",
-      day: "",
-      year: "",
-    },
-    toDate: {
-      month: "",
-      day: "",
-      year: "",
-    },
+    from: "",
+    to: "",
   });
 
   const handleInputChange = (e) => {
@@ -26,179 +24,158 @@ const AddQualification = ({ doctorId }) => {
     }));
   };
 
-  const handleDateChange = (type, e) => {
-    const { name, value } = e.target;
+  const handleDateChange = (type, date, dateString) => {
     setQualificationData((prevData) => ({
       ...prevData,
-      [type]: {
-        ...prevData[type],
-        [name]: value,
-      },
+      [type]: dateString,
     }));
   };
 
-  const handleUpdateEducation = (e) => {
+  //* API call
+  const [addDoctorEducation] = useAddDoctorEducationMutation();
+  const handleUpdateEducation = async (e) => {
     e.preventDefault();
 
-    // Format fromDate and toDate values
-    const formatDateString = (dateObj) => {
-      const { month, day, year } = dateObj;
-      return `${month.padStart(2, "0")}-${day.padStart(2, "0")}-${year}`;
-    };
+    message.loading("Please wait...");
+    try {
+      const res = await addDoctorEducation({ ...qualificationData, doctorId });
 
-    const formattedFromDate = formatDateString(qualificationData.fromDate);
-    const formattedToDate = formatDateString(qualificationData.toDate);
+      console.log(res);
 
-    // Now you can use formattedFromDate and formattedToDate in your API call
-    console.log("Formatted From Date:", formattedFromDate);
-    console.log("Formatted To Date:", formattedToDate);
+      if (res?.data?.id) {
+        message.success("Education data added successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
 
-    // Perform API call to add qualification using qualificationData
-    // ...
-
-    // Reset the form or perform any other necessary actions
+    // Reset the form
     setQualificationData({
       degreeName: "",
       universityName: "",
-      fromDate: {
-        month: "",
-        day: "",
-        year: "",
-      },
-      toDate: {
-        month: "",
-        day: "",
-        year: "",
-      },
+      from: "",
+      to: "",
     });
   };
 
   return (
-    <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
-      <h2 className="text-2xl font-semibold mb-4">Add Educational Data</h2>
-      <form onSubmit={handleUpdateEducation}>
-        {/* Degree Name */}
-        <div className="mb-4">
-          <label
-            htmlFor="degreeName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Degree Name
-          </label>
-          <input
-            type="text"
-            id="degreeName"
-            name="degreeName"
-            value={qualificationData.degreeName}
-            onChange={handleInputChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-        </div>
+    <div className="max-w-[1170px] px-5 mx-auto">
+      <div className="grid md:grid-cols-3 gap-[50px]">
+        <div className="md:col-span-3">
+          {/* //*add education data  */}
 
-        {/* University Name */}
-        <div className="mb-4">
-          <label
-            htmlFor="universityName"
-            className="block text-sm font-medium text-gray-700"
-          >
-            University Name
-          </label>
-          <input
-            type="text"
-            id="universityName"
-            name="universityName"
-            value={qualificationData.universityName}
-            onChange={handleInputChange}
-            className="mt-1 p-2 border rounded-md w-full"
-            required
-          />
-        </div>
+          <div className="max-w-md mx-auto mt-8 p-6 bg-white rounded-md shadow-md">
+            <h2 className="text-2xl font-semibold mb-4">
+              Add Educational Data
+            </h2>
+            <form onSubmit={handleUpdateEducation}>
+              {/* Degree Name */}
+              <div className="mb-4">
+                <label
+                  htmlFor="degreeName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Degree Name
+                </label>
+                <input
+                  type="text"
+                  id="degreeName"
+                  name="degreeName"
+                  value={qualificationData.degreeName}
+                  onChange={handleInputChange}
+                  className="mt-1 p-2 border rounded-md w-full"
+                  required
+                />
+              </div>
 
-        {/* From Date */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            From Date
-          </label>
-          <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              name="day"
-              placeholder="Day"
-              value={qualificationData.fromDate.day}
-              onChange={(e) => handleDateChange("fromDate", e)}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
+              {/* University Name */}
+              <div className="mb-4">
+                <label
+                  htmlFor="universityName"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  University Name
+                </label>
+                <input
+                  type="text"
+                  id="universityName"
+                  name="universityName"
+                  value={qualificationData.universityName}
+                  onChange={handleInputChange}
+                  className="mt-1 p-2 border rounded-md w-full"
+                  required
+                />
+              </div>
 
-            <input
-              type="text"
-              name="month"
-              placeholder="Month"
-              value={qualificationData.fromDate.month}
-              onChange={(e) => handleDateChange("fromDate", e)}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
+              <div className="flex justify-between">
+                {/* From Date */}
+                <div className="mb-4">
+                  <label className="block text-sm font-medium text-gray-700">
+                    From Date
+                  </label>
+                  <DatePicker
+                    onChange={(date, dateString) =>
+                      handleDateChange("from", date, dateString)
+                    }
+                  />
+                </div>
 
-            <input
-              type="text"
-              name="year"
-              placeholder="Year"
-              value={qualificationData.fromDate.year}
-              onChange={(e) => handleDateChange("fromDate", e)}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
+                {/* To Date */}
+                <div className="mb-4 ">
+                  <label className="block text-sm font-medium text-gray-700">
+                    To Date
+                  </label>
+                  <DatePicker
+                    onChange={(date, dateString) =>
+                      handleDateChange("to", date, dateString)
+                    }
+                  />
+                </div>
+              </div>
+
+              {/* Submit Button */}
+              <button
+                type="submit"
+                className="bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
+              >
+                Add
+              </button>
+            </form>
+          </div>
+
+          {/* navigate between view and edit  */}
+
+          <div className="mt-[50px] border-b border-solid border-[#0066ff34]">
+            <button
+              onClick={() => setTab("viewEducation")}
+              className={` ${
+                tab === "viewEducation" &&
+                "border-b border-solid border-primaryColor"
+              } py-2 px-5 mr-5 text-[16px] leading-7 text-headingColor font-semibold`}
+            >
+              View
+            </button>
+
+            <button
+              onClick={() => setTab("editEducation")}
+              className={`${
+                tab === "editEducation" &&
+                "border-b border-solid border-primaryColor"
+              } py-2 px-5 mr-5 text-[16px] leading-7 text-headingColor font-semibold`}
+            >
+              Edit
+            </button>
+          </div>
+
+          <div className="mt-[50px]">
+            {tab === "viewEducation" && (
+              <ViewQualification doctorId={doctorId} />
+            )}
+
+            {tab === "editEducation" && <EditQualification />}
           </div>
         </div>
-
-        {/* To Date */}
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-700">
-            To Date
-          </label>
-          <div className="flex items-center space-x-2">
-            <input
-              type="text"
-              name="day"
-              placeholder="Day"
-              value={qualificationData.toDate.day}
-              onChange={(e) => handleDateChange("toDate", e)}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
-
-            <input
-              type="text"
-              name="month"
-              placeholder="Month"
-              value={qualificationData.toDate.month}
-              onChange={(e) => handleDateChange("toDate", e)}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
-
-            <input
-              type="text"
-              name="year"
-              placeholder="Year"
-              value={qualificationData.toDate.year}
-              onChange={(e) => handleDateChange("toDate", e)}
-              className="mt-1 p-2 border rounded-md w-full"
-              required
-            />
-          </div>
-        </div>
-
-        {/* Submit Button */}
-        <button
-          type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-        >
-          Add Qualification
-        </button>
-      </form>
+      </div>
     </div>
   );
 };

@@ -50,7 +50,7 @@ const PatientPrescription = ({ doctorId }) => {
   const { data: DoctorAppointmentData, isLoading } =
     useGetAppointmentsByDoctorQuery(doctorId);
 
-  // console.log(DoctorAppointmentData);
+  console.log(DoctorAppointmentData);
 
   return (
     <div>
@@ -96,58 +96,45 @@ const PatientPrescription = ({ doctorId }) => {
 
               {/* Action */}
               <td className="py-2 px-4 border-b">
-                {appointment?.status === "finished" && (
-                  <div>
-                    {appointment?.prescriptionLink ? (
-                      <span className="text-green-600 font-bold">
-                        Prescription Added
-                      </span>
-                    ) : (
-                      <button
-                        onClick={() =>
-                          setSelectedRow(
-                            selectedRow === appointment?.id
-                              ? null
-                              : appointment?.id
-                          )
-                        }
-                        className={`bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 ${
-                          selectedRow === appointment?.id ? "bg-blue-600" : ""
-                        }`}
-                      >
-                        {selectedRow === appointment?.id
-                          ? "Hide Input"
-                          : "Add Prescription"}
-                      </button>
-                    )}
+                {appointment?.status === "finished" &&
+                appointment?.prescriptionLink === null ? (
+                  <button
+                    onClick={() =>
+                      setSelectedRow(
+                        selectedRow === appointment?.id ? null : appointment?.id
+                      )
+                    }
+                    className={`bg-blue-500 text-white px-3 py-1 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600 ${
+                      selectedRow === appointment?.id ? "bg-blue-600" : ""
+                    }`}
+                  >
+                    {selectedRow === appointment?.id
+                      ? "Hide Input"
+                      : "Add Prescription"}
+                  </button>
+                ) : (
+                  <span>
+                    {appointment?.prescriptionLink !== null
+                      ? "Prescription Added"
+                      : "Can't Add Prescription"}
+                  </span>
+                )}
 
-                    {selectedRow === appointment?.id && (
-                      <div className="mt-2">
-                        {appointment?.prescriptionLink ? (
-                          <span className="text-green-600 font-bold">
-                            Prescription Added
-                          </span>
-                        ) : (
-                          <>
-                            <input
-                              type="text"
-                              value={prescription}
-                              onChange={(e) => setPrescription(e.target.value)}
-                              placeholder="Enter Prescription"
-                              className="border border-gray-300 px-3 py-1 rounded-md mr-2"
-                            />
-                            <button
-                              onClick={() =>
-                                handleAddPrescription(appointment?.id)
-                              }
-                              className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
-                            >
-                              Add
-                            </button>
-                          </>
-                        )}
-                      </div>
-                    )}
+                {selectedRow === appointment?.id && (
+                  <div className="mt-2">
+                    <input
+                      type="text"
+                      value={prescription}
+                      onChange={(e) => setPrescription(e.target.value)}
+                      placeholder="Enter Prescription"
+                      className="border border-gray-300 px-3 py-1 rounded-md mr-2"
+                    />
+                    <button
+                      onClick={() => handleAddPrescription(appointment?.id)}
+                      className="bg-green-500 text-white px-3 py-1 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
+                    >
+                      Add
+                    </button>
                   </div>
                 )}
               </td>
