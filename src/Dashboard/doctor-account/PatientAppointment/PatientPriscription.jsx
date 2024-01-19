@@ -50,7 +50,7 @@ const PatientPrescription = ({ doctorId }) => {
   const { data: DoctorAppointmentData, isLoading } =
     useGetAppointmentsByDoctorQuery(doctorId);
 
-  console.log(DoctorAppointmentData);
+  // console.log(DoctorAppointmentData);
 
   return (
     <div>
@@ -113,7 +113,13 @@ const PatientPrescription = ({ doctorId }) => {
                       : "Add Prescription"}
                   </button>
                 ) : (
-                  <span>
+                  <span
+                    className={`text-${
+                      appointment?.prescriptionLink !== null
+                        ? "green-600"
+                        : "red-600 "
+                    }font-semibold`}
+                  >
                     {appointment?.prescriptionLink !== null
                       ? "Prescription Added"
                       : "Can't Add Prescription"}

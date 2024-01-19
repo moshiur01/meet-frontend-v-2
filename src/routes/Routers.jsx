@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import DoctorDashboard from "../Dashboard/doctor-account/Dashboard";
+import MedicineManAccount from "../Dashboard/medicine-man-account/MedicineManAccount";
 import MyAccount from "../Dashboard/user-account/myAccount";
 import BookingDetails from "../pages/Booking/BookingDetails";
 import Contact from "../pages/Contact";
@@ -31,10 +32,18 @@ function Routers() {
         }
       />
       <Route
-        path="/user/profile"
+        path="/patient/profile"
         element={
           <ProtectedRoute allowedRoles={["patient"]}>
             <MyAccount />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/medicineMan/profile"
+        element={
+          <ProtectedRoute allowedRoles={["medicineMan"]}>
+            <MedicineManAccount />
           </ProtectedRoute>
         }
       />

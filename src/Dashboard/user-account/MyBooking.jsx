@@ -21,13 +21,13 @@ const MyBooking = () => {
       case "finished":
         return "text-green-500 text-bold";
       case "paid":
-        return "text-green-500 text-bold"; // Change this to the color you want for paid status
+        return "text-green-500 text-bold";
       case "pending":
-        return "text-yellow-500 text-bold"; // Change this to the color you want for pending status
+        return "text-yellow-500 text-bold";
       case "canceled":
-        return "text-red-500 text-bold"; // Change this to the color you want for canceled status
+        return "text-red-500 text-bold";
       default:
-        return "text-gray-500"; // Default color for other statuses
+        return "text-gray-500";
     }
   };
 

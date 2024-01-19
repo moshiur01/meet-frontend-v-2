@@ -1,14 +1,15 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import { message } from "antd";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { bloodGroupOptions } from "../../constrains/Global";
-import { useUpdatePatientMutation } from "../../redux/api/patient/patientApi";
+
+import { message } from "antd";
+import { useUpdateMedicineManMutation } from "../../redux/api/medicineManApi";
 import uploadImage from "../../utils/UploadImageToCloudinary";
 
-const ProfileSetting = ({ user }) => {
+const MedicineManProfile = ({ user }) => {
+  console.log(user);
   const [selectFile, setSelectFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
 
@@ -32,10 +33,10 @@ const ProfileSetting = ({ user }) => {
     setFormData({
       name: user?.name,
       email: user?.email,
-      phone: user?.phone,
+      phoneNumber: user?.phoneNumber,
       password: user?.password,
-      gender: user?.gender,
-      bloodType: user?.bloodType,
+      //   gender: user?.gender,
+      //   bloodType: user?.bloodType,
     });
   }, [user]);
 
@@ -68,13 +69,14 @@ const ProfileSetting = ({ user }) => {
   };
 
   //*update data api handler
-  const [updatePatient] = useUpdatePatientMutation();
+  const [updateMedicineMan] = useUpdateMedicineManMutation();
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     message.loading("Please wait...");
     if (!formData?.photo) {
-      const res = await updatePatient({
+      const res = await updateMedicineMan({
         id: user?.id,
         body: formData,
       }).unwrap();
@@ -89,18 +91,18 @@ const ProfileSetting = ({ user }) => {
 
       formData.photo = photoUrl;
 
-      const res = await updatePatient({
+      const res = await updateMedicineMan({
         id: user?.id,
         body: formData,
       }).unwrap();
 
       res.id && toast.success("Profile Updated successfully");
     }
+    // console.log(formData);
 
     // const uploadImageLink = await uploadImage(formData?.photo);
 
     // console.log(uploadImageLink);
-    console.log(formData);
     // console.log(res);
     // console.log(formData);
   };
@@ -127,7 +129,7 @@ const ProfileSetting = ({ user }) => {
               type="text"
               name="phone"
               placeholder="Enter Your Phone number"
-              value={formData?.phone}
+              value={formData?.phoneNumber}
               onChange={handleInputChange}
               className="w-full px-4  py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer placeholder:text-sm"
               required
@@ -166,42 +168,6 @@ const ProfileSetting = ({ user }) => {
                 <FaEye className="w-10" />
               )}
             </span>
-          </div>
-          {/* dropdown  */}
-          <div className="mb-5 flex items-center justify-between">
-            {/* bloodGroup dropdown */}
-
-            <label className="text-headingColor font-bold text-[16px] leading-7">
-              Select Blood Group
-              <select
-                name="bloodType"
-                value={formData?.bloodType}
-                onChange={handleInputChange}
-                className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
-              >
-                <option value=""> Select</option>
-                {bloodGroupOptions.map((bloodGroup) => (
-                  <option key={bloodGroup.value} value={bloodGroup.value}>
-                    {bloodGroup.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            {/* gender dropdown */}
-            <label className="text-headingColor font-bold text-[16px] leading-7">
-              Gender:
-              <select
-                name="gender"
-                value={formData?.gender}
-                onChange={handleInputChange}
-                className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
-              >
-                <option value=""> Select</option>
-                <option value="male"> Male</option>
-                <option value="female"> Female</option>
-              </select>
-            </label>
           </div>
           upload image
           <div className="mb-5 flex items-center gap-3">
@@ -243,4 +209,4 @@ const ProfileSetting = ({ user }) => {
   );
 };
 
-export default ProfileSetting;
+export default MedicineManProfile;

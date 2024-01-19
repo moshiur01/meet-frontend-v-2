@@ -91,7 +91,21 @@ function Header() {
               {id && role === "patient" && (
                 <li>
                   <NavLink
-                    to="/user/profile"
+                    to="/patient/profile"
+                    className={(navClass) =>
+                      navClass.isActive
+                        ? "text-primaryColor text-[16px] leading-7 font-[600]"
+                        : "text-textColor text-[16px] leading-7 font-[500] hover:text-primaryColor"
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+              )}
+              {id && role === "medicineMan" && (
+                <li>
+                  <NavLink
+                    to="/medicineMan/profile"
                     className={(navClass) =>
                       navClass.isActive
                         ? "text-primaryColor text-[16px] leading-7 font-[600]"

@@ -1,4 +1,5 @@
 /* eslint-disable react/prop-types */
+import { message } from "antd";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { AiFillStar } from "react-icons/ai";
@@ -28,13 +29,18 @@ const FeedbackForm = ({ doctorId }) => {
       patientId,
     };
 
+    // console.log(backendData);
+
     try {
+      message.loading("Please wait...");
       const res = await addDoctorReview({ ...backendData }).unwrap();
-      console.log(res);
+      // console.log(res);
 
       if (res !== undefined) {
         toast.success("Thank you for your review");
         window.location.reload();
+      } else {
+        message.error("Failed to give Feedback");
       }
     } catch (error) {
       console.log(error);

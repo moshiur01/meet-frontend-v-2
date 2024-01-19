@@ -1,3 +1,4 @@
+import { message } from "antd";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
@@ -29,12 +30,13 @@ const BookingDetails = () => {
       doctorServiceId,
     };
     try {
+      message.loading("Please wait...");
       const res = await bookAppointment({ ...backendData }).unwrap();
 
-      console.log(res);
+      // console.log(res);
 
       res?.appointment?.id && toast.success("Booking successfully");
-      navigate("/user/profile");
+      navigate("/patient/profile");
     } catch (error) {
       console.log(error);
     }
