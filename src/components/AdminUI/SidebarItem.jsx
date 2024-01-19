@@ -1,6 +1,6 @@
 import { FaClipboardList, FaUser, FaUserDoctor } from "react-icons/fa6";
 import { ImProfile } from "react-icons/im";
-import { MdRateReview } from "react-icons/md";
+import { MdOutlineImageAspectRatio, MdRateReview } from "react-icons/md";
 import { RiAdminFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
 export const sidebarItems = () => {
@@ -36,16 +36,37 @@ export const sidebarItems = () => {
       icon: <FaUser />,
     },
 
+    //Specialization (show and add)
+    {
+      label: "Specialization",
+      key: "specialization",
+      icon: <MdOutlineImageAspectRatio />,
+      children: [
+        {
+          label: (
+            <Link to={"/admin/profile/createSpecialization"}>
+              Create Specialization
+            </Link>
+          ),
+          key: "/admin/profile/createSpecialization",
+        },
+        {
+          label: (
+            <Link to={`/admin/profile/seeAllSpecializations`}>
+              All Specialization Data
+            </Link>
+          ),
+          key: `/admin/profile/seeAllSpecializations`,
+        },
+      ],
+    },
+
     //doctors (show and add)
     {
       label: "Doctors",
       key: "doctors",
       icon: <FaUserDoctor />,
       children: [
-        // {
-        //   label: <Link href={`/${role}`}>Account Profile</Link>,
-        //   key: `/${role}/profile`,
-        // },
         {
           label: <Link to={"/admin/profile/seeDoctors"}>See Doctors</Link>,
           key: "/admin/profile/seeDoctors",

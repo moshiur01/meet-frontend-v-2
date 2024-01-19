@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { message } from "antd";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -69,8 +70,9 @@ const Signup = () => {
       return;
     }
     try {
+      message.loading("Please wait...");
       const res = await addPatient(formData);
-      console.log(res);
+      // console.log(res);
       res?.data?.id && toast.success("patient data inserted successfully");
       navigate("/login");
     } catch (error) {
@@ -117,7 +119,7 @@ const Signup = () => {
               {/* phone  */}
               <div className="mb-5">
                 <input
-                  type="text"
+                  type="number"
                   name="phone"
                   placeholder="Enter Your Phone number"
                   value={formData?.phone}
@@ -199,35 +201,6 @@ const Signup = () => {
                   </select>
                 </label>
               </div>
-
-              {/* upload image 
-              <div className="mb-5 flex items-center gap-3">
-                <figure className="w-[60px] h-[60px] rounded-full border-4 border-solid border-primaryColor flex items-center justify-center">
-                  <img
-                    src={previewUrl || avatar}
-                    alt=""
-                    className="w-full rounded-full"
-                  />
-                </figure>
-
-                <div className="relative w-[130px] h-[50px]">
-                  <input
-                    type="file"
-                    name="photo"
-                    id="customFile"
-                    accept=".jpg, .png"
-                    className="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer"
-                    onChange={handleFileChange}
-                  />
-
-                  <label
-                    htmlFor="customFile"
-                    className="absolute top-0 left-0 w-full h-full flex items-center px-[0.75rem] py-[0.375rem] text-[15px] leading-6 overflow-hidden bg-[#0066ff46] text-headingColor font-semibold rounded-lg truncate cursor-pointer "
-                  >
-                    Upload Photo
-                  </label>
-                </div>
-              </div> */}
 
               {/* signup btn  */}
               <div className="mt-7">

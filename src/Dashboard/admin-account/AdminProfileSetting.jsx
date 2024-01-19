@@ -4,24 +4,20 @@ import { message } from "antd";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { bloodGroupOptions } from "../../constrains/Global";
-import { useUpdatePatientMutation } from "../../redux/api/patient/patientApi";
+
+import { useUpdateAdminMutation } from "../../redux/api/adminApi";
 import uploadImage from "../../utils/UploadImageToCloudinary";
 
-const ProfileSetting = ({ user }) => {
+const AdminProfileSetting = ({ admin }) => {
   const [selectFile, setSelectFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
 
   const [formData, setFormData] = useState({
     name: "",
-    phone: "",
+    phoneNumber: "",
     email: "",
     password: "",
-    photo:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ2a4xxU0NG6NU0MrfhXkenFNvNMFScB1eDRokLNrMP8seq585qB4EKsddo-1_T6WDTu1g&usqp=CAU",
-    gender: "",
-
-    bloodType: "",
+    photo: "",
   });
 
   const handleInputChange = (e) => {
@@ -30,14 +26,12 @@ const ProfileSetting = ({ user }) => {
 
   useEffect(() => {
     setFormData({
-      name: user?.name,
-      email: user?.email,
-      phone: user?.phone,
-      password: user?.password,
-      gender: user?.gender,
-      bloodType: user?.bloodType,
+      name: admin?.name,
+      email: admin?.email,
+      phoneNumber: admin?.phoneNumber,
+      password: admin?.password,
     });
-  }, [user]);
+  }, [admin]);
 
   //* image upload
   const handleFileChange = async (e) => {
@@ -68,14 +62,14 @@ const ProfileSetting = ({ user }) => {
   };
 
   //*update data api handler
-  const [updatePatient] = useUpdatePatientMutation();
+  const [updateAdmin] = useUpdateAdminMutation();
 
   const submitHandler = async (e) => {
     e.preventDefault();
     message.loading("Please wait...");
     if (!formData?.photo) {
-      const res = await updatePatient({
-        id: user?.id,
+      const res = await updateAdmin({
+        id: admin?.id,
         body: formData,
       }).unwrap();
 
@@ -89,18 +83,18 @@ const ProfileSetting = ({ user }) => {
 
       formData.photo = photoUrl;
 
-      const res = await updatePatient({
-        id: user?.id,
+      const res = await updateAdmin({
+        id: admin?.id,
         body: formData,
       }).unwrap();
 
       res.id && toast.success("Profile Updated successfully");
     }
+    // console.log(formData);
 
     // const uploadImageLink = await uploadImage(formData?.photo);
 
     // console.log(uploadImageLink);
-    // console.log(formData);
     // console.log(res);
     // console.log(formData);
   };
@@ -125,9 +119,9 @@ const ProfileSetting = ({ user }) => {
           <div className="mb-5">
             <input
               type="number"
-              name="phone"
+              name="phoneNumber"
               placeholder="Enter Your Phone number"
-              value={formData?.phone}
+              value={formData?.phoneNumber}
               onChange={handleInputChange}
               className="w-full px-4  py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer placeholder:text-sm"
               required
@@ -167,42 +161,7 @@ const ProfileSetting = ({ user }) => {
               )}
             </span>
           </div>
-          {/* dropdown  */}
-          <div className="mb-5 flex items-center justify-between">
-            {/* bloodGroup dropdown */}
 
-            <label className="text-headingColor font-bold text-[16px] leading-7">
-              Select Blood Group
-              <select
-                name="bloodType"
-                value={formData?.bloodType}
-                onChange={handleInputChange}
-                className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
-              >
-                <option value=""> Select</option>
-                {bloodGroupOptions.map((bloodGroup) => (
-                  <option key={bloodGroup.value} value={bloodGroup.value}>
-                    {bloodGroup.label}
-                  </option>
-                ))}
-              </select>
-            </label>
-
-            {/* gender dropdown */}
-            <label className="text-headingColor font-bold text-[16px] leading-7">
-              Gender:
-              <select
-                name="gender"
-                value={formData?.gender}
-                onChange={handleInputChange}
-                className="text-textColor font-semibold text-[15px] leading-7 px-4 py-3 focus:outline-none"
-              >
-                <option value=""> Select</option>
-                <option value="male"> Male</option>
-                <option value="female"> Female</option>
-              </select>
-            </label>
-          </div>
           {/* upload image */}
           <div className="mb-5 flex items-center gap-3">
             <figure className="w-[60px] h-[60px] rounded-full border-4 border-solid border-primaryColor flex items-center justify-center">
@@ -243,4 +202,4 @@ const ProfileSetting = ({ user }) => {
   );
 };
 
-export default ProfileSetting;
+export default AdminProfileSetting;
