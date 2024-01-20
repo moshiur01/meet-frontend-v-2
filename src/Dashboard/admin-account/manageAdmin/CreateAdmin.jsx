@@ -3,12 +3,9 @@ import { message } from "antd";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
 import { useAddAdminMutation } from "../../../redux/api/adminApi";
 
 const CreateAdmin = () => {
-  const navigate = useNavigate();
-
   const [selectFile, setSelectFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState("");
 

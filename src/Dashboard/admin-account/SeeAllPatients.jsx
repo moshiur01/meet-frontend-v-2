@@ -141,7 +141,7 @@ const SeeAllPatients = () => {
 
   return (
     <div className="mx-8 my-4">
-      <ActionBar title="Admin List" className="font-[600]">
+      <ActionBar title="Patient List" className="font-[600]">
         <Input
           type="text"
           size="large"

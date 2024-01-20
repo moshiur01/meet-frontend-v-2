@@ -14,6 +14,7 @@ import CreateMedicineDeliveryProfile from "../Dashboard/admin-account/manageMedi
 import PatientReviewToDoctors from "../Dashboard/admin-account/manageReviews/PatientReviesToDoctors";
 import PlatformReviews from "../Dashboard/admin-account/manageReviews/PlatfromReviews";
 import CreateSpecialization from "../Dashboard/admin-account/manageSpecialization/CreateSpecialization";
+import EditSpecialization from "../Dashboard/admin-account/manageSpecialization/EditSpecialization";
 import SeeAllSpecialization from "../Dashboard/admin-account/manageSpecialization/SeeAllSpecialization";
 import DoctorDashboard from "../Dashboard/doctor-account/Dashboard";
 import MedicineManAccount from "../Dashboard/medicine-man-account/MedicineManAccount";
@@ -91,6 +92,9 @@ function Routers() {
         <Route path="seeAllPatient" element={<SeeAllPatients />} />
 
         <Route path="createSpecialization" element={<CreateSpecialization />} />
+
+        <Route path="editSpecialization/:id" element={<EditSpecialization />} />
+
         <Route
           path="seeAllSpecializations"
           element={<SeeAllSpecialization />}
