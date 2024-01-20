@@ -3,6 +3,7 @@ import AdminDashboard from "../Dashboard/admin-account/AdminDashboard";
 import AdminProfile from "../Dashboard/admin-account/AdminProfile";
 import AddDoctor from "../Dashboard/admin-account/ManageDoctor/AddDoctor";
 import SeeAllDoctors from "../Dashboard/admin-account/ManageDoctor/SeeAllDoctors";
+import SeeAllPatients from "../Dashboard/admin-account/SeeAllPatients";
 import CreateAdmin from "../Dashboard/admin-account/manageAdmin/CreateAdmin";
 import SeeAllAdmin from "../Dashboard/admin-account/manageAdmin/SeeAllAdmin";
 import DoctorAppointment from "../Dashboard/admin-account/manageAppointment/DoctorAppointment";
@@ -87,6 +88,7 @@ function Routers() {
 
         <Route path="patientReviews" element={<PatientReviewToDoctors />} />
         <Route path="platformReview" element={<PlatformReviews />} />
+        <Route path="seeAllPatient" element={<SeeAllPatients />} />
 
         <Route path="createSpecialization" element={<CreateSpecialization />} />
         <Route

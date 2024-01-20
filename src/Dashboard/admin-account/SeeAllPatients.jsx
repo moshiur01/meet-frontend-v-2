@@ -1,20 +1,15 @@
-import { Button, Input, message } from "antd";
+import { Button, Input } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { MdDeleteForever } from "react-icons/md";
-import { Link } from "react-router-dom";
 
 import { RxReload } from "react-icons/rx";
-import ActionBar from "../../../components/AdminUI/ActionBar";
-import ViewDataTable from "../../../components/Table/ViewDataTable";
-import {
-  useAdminsQuery,
-  useDeleteAdminMutation,
-} from "../../../redux/api/adminApi";
-import { getUserInfo } from "../../../services/auth.service";
 
-const SeeAllAdmin = () => {
-  const { id: currentAdminId } = getUserInfo();
+import ActionBar from "../../components/AdminUI/ActionBar";
+import ViewDataTable from "../../components/Table/ViewDataTable";
+import { usePatientsQuery } from "../../redux/api/patient/patientApi";
+
+const SeeAllPatients = () => {
+  //   const { id: currentAdminId } = getUserInfo();
 
   const query = {};
 
@@ -24,7 +19,7 @@ const SeeAllAdmin = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  const [deleteAdmin] = useDeleteAdminMutation();
+  //   const [deleteAdmin] = useDeleteAdminMutation();
 
   query["limit"] = size;
   query["page"] = page;
@@ -33,19 +28,21 @@ const SeeAllAdmin = () => {
   query["searchTerm"] = searchTerm;
 
   //* admin date get api
-  const { data, isLoading } = useAdminsQuery({ ...query });
-  const admins = data?.admins?.data;
-  const meta = data?.admins?.meta;
+  const { data, isLoading } = usePatientsQuery({ ...query });
 
-  const deleteHandler = async (id) => {
-    message.loading("Deleting.....");
-    try {
-      const res = await deleteAdmin(id);
-      res?.data?.id && message.success("Admin Data Deleted successfully");
-    } catch (err) {
-      message.error(err.message);
-    }
-  };
+  //   console.log(data);
+  const patients = data?.patients?.data;
+  const meta = data?.patients?.meta;
+
+  //   const deleteHandler = async (id) => {
+  //     message.loading("Deleting.....");
+  //     try {
+  //       const res = await deleteAdmin(id);
+  //       res?.data?.id && message.success("Admin Data Deleted successfully");
+  //     } catch (err) {
+  //       message.error(err.message);
+  //     }
+  //   };
 
   const columns = [
     {
@@ -75,10 +72,24 @@ const SeeAllAdmin = () => {
     },
     {
       title: "Phone Number",
-      dataIndex: "phoneNumber",
+      dataIndex: "phone",
     },
     {
-      title: "CreatedAt",
+      title: "Total Number of Appointments",
+      dataIndex: "appointment",
+      render: (text, record) => <span>{record?.appointment?.length || 0}</span>,
+    },
+
+    {
+      title: "Gender",
+      dataIndex: "gender",
+    },
+    {
+      title: "Blood Group",
+      dataIndex: "bloodType",
+    },
+    {
+      title: "Member Since",
       dataIndex: "createdAt",
       render: function (data) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -93,20 +104,22 @@ const SeeAllAdmin = () => {
       },
       sorter: true,
     },
-    {
-      title: "Action",
-      render: function (data) {
-        if (data?.id === currentAdminId) {
-          return null;
-        }
+    // {
+    //   title: "Action",
+    //   render: function (data) {
+    //     if (data?.id === currentAdminId) {
+    //       return null;
+    //     }
 
-        return (
-          <Button onClick={() => deleteHandler(data?.id)} type="primary" danger>
-            <MdDeleteForever />
-          </Button>
-        );
-      },
-    },
+    //     return (
+    //       <Button
+
+    //       onClick={() => deleteHandler(data?.id)} type="primary" danger>
+    //         <MdDeleteForever />
+    //       </Button>
+    //     );
+    //   },
+    // },
   ];
 
   const onPaginationChange = (page, pageSize) => {
@@ -141,16 +154,6 @@ const SeeAllAdmin = () => {
           }}
         />
         <div>
-          <Link to="/admin/profile/createAdmin">
-            <Button
-              type="primary"
-              style={{
-                backgroundColor: "blue",
-              }}
-            >
-              Create
-            </Button>
-          </Link>
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               onClick={resetFilters}
@@ -166,7 +169,7 @@ const SeeAllAdmin = () => {
       <ViewDataTable
         loading={isLoading}
         columns={columns}
-        dataSource={admins}
+        dataSource={patients}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -178,4 +181,4 @@ const SeeAllAdmin = () => {
   );
 };
 
-export default SeeAllAdmin;
+export default SeeAllPatients;
