@@ -55,6 +55,11 @@ const SeeAllDoctors = () => {
     {
       title: "Doctor name",
       dataIndex: "name",
+      render: (text, record) => (
+        <span className=" block text-center">
+          {record.name} <br />({record.specialization?.name})
+        </span>
+      ),
     },
     {
       title: "Doctor  Photo",

@@ -82,7 +82,7 @@ const PlatformReviews = () => {
       dataIndex: "reviewText",
     },
     {
-      title: "CreatedAt",
+      title: "Created At",
       dataIndex: "createdAt",
       render: function (data) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -90,7 +90,7 @@ const PlatformReviews = () => {
       sorter: true,
     },
     {
-      title: "UpdatedAt",
+      title: "Updated At",
       dataIndex: "updatedAt",
       render: function (data) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
