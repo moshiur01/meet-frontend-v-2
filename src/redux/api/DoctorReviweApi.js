@@ -56,13 +56,13 @@ export const DoctorReviewApi = baseApi.injectEndpoints({
     //   invalidatesTags: [tagTypes.doctorService],
     // }),
 
-    // deleteTimeSlot: build.mutation({
-    //   query: (id) => ({
-    //     url: `${DOCTOR_SERVICE_URL}/${id}`,
-    //     method: "DELETE",
-    //   }),
-    //   invalidatesTags: [tagTypes.doctorService],
-    // }),
+    deleteDoctorReview: build.mutation({
+      query: (id) => ({
+        url: `${DOCTOR_REVIEW_URL}/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: [tagTypes.doctorReview],
+    }),
   }),
 });
 
@@ -71,4 +71,5 @@ export const {
   useDoctorReviewsQuery,
   useSingleDoctorReviewQuery,
   useSpecificDoctorReviewsQuery,
+  useDeleteDoctorReviewMutation,
 } = DoctorReviewApi;

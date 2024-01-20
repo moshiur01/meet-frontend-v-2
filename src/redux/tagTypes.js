@@ -14,6 +14,7 @@ export const tagTypes = {
   doctorExperience: "doctorExperience",
   medicineMan: "medicineMan",
   medicine: "medicine",
+  platformReview: "platformReview",
 };
 
 export const tagTypesList = [
@@ -32,4 +33,5 @@ export const tagTypesList = [
   tagTypes.doctorExperience,
   tagTypes.medicineMan,
   tagTypes.medicine,
+  tagTypes.platformReview,
 ];

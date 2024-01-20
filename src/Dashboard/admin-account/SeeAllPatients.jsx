@@ -52,7 +52,7 @@ const SeeAllPatients = () => {
     },
 
     {
-      title: "Title",
+      title: "Name",
       dataIndex: "name",
     },
     {

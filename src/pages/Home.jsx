@@ -243,7 +243,7 @@ const Home = () => {
           <div className="xl:w-[470px] mx-auto">
             <h2 className="heading text-center ">What our patient say</h2>
             <p className="text__pera text-center">
-              sfsdfsdafasdfasdfasdfsdafsdafasdfasdfasdfasdf
+              See what our patients think about us
             </p>
           </div>
           <UserReviewHomeList />

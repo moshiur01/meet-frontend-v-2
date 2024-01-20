@@ -1,3 +1,4 @@
+import { Pagination } from "antd";
 import { useState } from "react";
 import DoctorCard from "../../components/Doctors/DoctorCard";
 import Loading from "../../components/Loader/Loading";
@@ -7,7 +8,7 @@ const Doctors = () => {
   const query = {};
 
   const [page, setPage] = useState(1);
-  const [size, setSize] = useState(10);
+  const [size, setSize] = useState(12);
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
@@ -21,6 +22,13 @@ const Doctors = () => {
   const { data, isLoading } = useDoctorsQuery({ ...query });
 
   const doctors = data?.doctors?.data;
+  const meta = data?.doctors?.meta;
+
+  const handlePaginationChange = (newPage) => {
+    setPage(newPage);
+  };
+
+  // console.log(meta);
 
   // console.log(doctors);
 
@@ -50,11 +58,19 @@ const Doctors = () => {
       {!isLoading && doctors && (
         <section>
           <div className="container">
-            <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2  lg:grid-cols-4 gap-5 ">
+            <div className="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 lg:grid-cols-4 gap-5">
               {doctors?.map((doctor) => (
                 <DoctorCard key={doctor?.id} doctor={doctor} />
               ))}
             </div>
+          </div>
+          <div className="flex justify-center mt-4">
+            <Pagination
+              current={meta?.page}
+              total={meta?.total}
+              pageSize={size}
+              onChange={handlePaginationChange}
+            />
           </div>
         </section>
       )}
