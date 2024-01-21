@@ -5,6 +5,7 @@ import { authKey } from "../../constrains/storageKey";
 import { usePatientQuery } from "../../redux/api/patient/patientApi";
 import { getUserInfo, removeUserInfo } from "../../services/auth.service";
 import MyBooking from "./MyBooking";
+import PlatformReview from "./PlatformReview";
 import ProfileSetting from "./ProfileSetting";
 
 const MyAccount = () => {
@@ -100,6 +101,17 @@ const MyAccount = () => {
                 >
                   Profile Settings
                 </button>
+
+                <button
+                  onClick={() => setTab("platformReview")}
+                  className={`${
+                    tab === "platformReview"
+                      ? "bg-primaryColor text-white font-normal"
+                      : ""
+                  } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor`}
+                >
+                  Give Review
+                </button>
               </div>
 
               {/* conditional render tab content  */}
@@ -107,6 +119,9 @@ const MyAccount = () => {
               {tab === "booking" && <MyBooking />}
               {tab === "profileSetting" && (
                 <ProfileSetting user={patientData} />
+              )}
+              {tab === "platformReview" && (
+                <PlatformReview user={patientData} />
               )}
             </div>
           </div>

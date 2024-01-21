@@ -8,7 +8,7 @@ const medicineManApi = baseApi.injectEndpoints({
     //*create a new platformReview data
     addPlatformReview: build.mutation({
       query: (data) => ({
-        url: "/medicine-mans/create-platform-review",
+        url: "/platform-reviews/create-platform-review",
         method: "POST",
         data,
       }),
