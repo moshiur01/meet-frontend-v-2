@@ -1,6 +1,7 @@
 import { Button, Input } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
+import { FaStar } from "react-icons/fa";
 import { RxReload } from "react-icons/rx";
 import { Link } from "react-router-dom";
 import ActionBar from "../../../components/AdminUI/ActionBar";
@@ -64,13 +65,19 @@ const SeeAllDoctors = () => {
     {
       title: "Doctor  Photo",
       dataIndex: "photo",
-      render: (photo) => (
-        <img
-          className="rounded-lg"
-          src={photo}
-          alt="User Photo"
-          style={{ maxWidth: "40px", maxHeight: "50px" }}
-        />
+      render: (text, record) => (
+        <div className="flex justify-center items-center gap-4">
+          <img
+            className="rounded-lg"
+            src={record?.photo}
+            alt="User Photo"
+            style={{ maxWidth: "40px", maxHeight: "50px" }}
+          />
+
+          <span className="flex items-center gap-1">
+            <FaStar className="text-yellowColor" />({record?.avgRating})
+          </span>
+        </div>
       ),
     },
     {
@@ -85,7 +92,9 @@ const SeeAllDoctors = () => {
       title: "Total Number of Appointments",
       dataIndex: "appointment",
       render: (text, record) => (
-        <span>{record?.appointments?.length || 0}</span>
+        <span className="text-center block">
+          {record?.appointments?.length || 0}
+        </span>
       ),
     },
 
@@ -103,7 +112,7 @@ const SeeAllDoctors = () => {
       sorter: true,
     },
     {
-      title: "UpdatedAt",
+      title: "Updated At",
       dataIndex: "updatedAt",
       render: function (data) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -151,6 +160,7 @@ const SeeAllDoctors = () => {
         <Input
           type="text"
           size="large"
+          value={searchTerm}
           placeholder="Search..."
           style={{
             width: "20%",

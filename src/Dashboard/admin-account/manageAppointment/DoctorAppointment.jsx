@@ -137,6 +137,7 @@ const DoctorAppointment = () => {
         <Input
           type="text"
           size="large"
+          value={searchTerm}
           placeholder="Search..."
           style={{
             width: "20%",

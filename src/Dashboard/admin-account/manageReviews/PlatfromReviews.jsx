@@ -27,7 +27,7 @@ const PlatformReviews = () => {
   query["sortOrder"] = sortOrder;
   query["searchTerm"] = searchTerm;
 
-  //* admin date get api
+  //* platformReview date get api
   const { data, isLoading } = useAllPlatformReviewsQuery({ ...query });
   const platformReviews = data?.platformReviews?.data;
   const meta = data?.platformReviews?.meta;
@@ -132,6 +132,7 @@ const PlatformReviews = () => {
         <Input
           type="text"
           size="large"
+          value={searchTerm}
           placeholder="Search..."
           style={{
             width: "20%",

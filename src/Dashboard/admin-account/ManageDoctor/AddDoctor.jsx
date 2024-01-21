@@ -33,6 +33,11 @@ const AddDoctor = () => {
   ];
 
   const doctorOnSubmit = async (data) => {
+    // Check if the email contains "@gmail.com"
+    if (!data.email.includes("@gmail.com")) {
+      message.error("Invalid Email");
+      return;
+    }
     message.loading("Creating Doctor Data...");
 
     // console.log(data);
