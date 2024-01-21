@@ -2,9 +2,12 @@
 import { Link } from "react-router-dom";
 import Loading from "../../components/Loader/Loading";
 import { useSingleDoctorServiceQuery } from "../../redux/api/doctorServiceApi";
+import { getUserInfo } from "../../services/auth.service";
 
 const SidePanel = ({ id }) => {
   // console.log('doctorId', id);
+
+  const { role } = getUserInfo();
 
   const { data: DoctorServiceData, isLoading: loading } =
     useSingleDoctorServiceQuery(id);
@@ -17,7 +20,7 @@ const SidePanel = ({ id }) => {
     <>
       {loading && <Loading />}
 
-      {!loading && DoctorServiceData.length != 0 && (
+      {!loading && DoctorServiceData.length != 0 && role === "patient" && (
         <div className=" shadow-panelShadow p-3 lg:p-5 rounded-md">
           <div className="flex items-center justify-between">
             <p className="text__pera mt-0 font-semibold">Appointment Fee</p>

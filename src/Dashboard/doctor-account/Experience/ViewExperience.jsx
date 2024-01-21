@@ -44,7 +44,7 @@ const ViewExperience = ({ doctorId }) => {
 
       {!isLoading && doctorExperienceData?.length === 0 && (
         <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor  ">
-          You did not add any Experience data Yet!
+          You did not add any experience data Yet!
         </h2>
       )}
 

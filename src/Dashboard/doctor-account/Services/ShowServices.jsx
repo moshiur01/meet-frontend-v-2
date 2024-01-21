@@ -37,11 +37,11 @@ const ShowServices = ({ doctorId }) => {
 
       {!isLoading && doctorService?.length === 0 && (
         <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor  ">
-          You have not added any service yet!
+          You do not added any service yet!
         </h2>
       )}
 
-      {!isLoading && (
+      {!isLoading && doctorService?.length !== 0 && (
         <table className="min-w-full border rounded-md overflow-hidden">
           <thead className="bg-gray-100">
             <tr>

@@ -2,10 +2,11 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAddDoctorServiceMutation } from "../../../redux/api/doctorServiceApi";
+import { useTimeSlotForDoctorQuery } from "../../../redux/api/timeSlotByDoctorApi";
 import ShowServices from "./ShowServices";
 
 const AddService = (props) => {
-  const { doctorId, timeSlot: timeData } = props;
+  const { doctorId } = props;
   // console.log(doctorId);
   // console.log(timeData);
   const [tab, setTab] = useState("showServices");
@@ -13,8 +14,11 @@ const AddService = (props) => {
   const [vacancy, setVacancy] = useState("");
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
 
-  //*api call for create doctor service
+  //*time slot data for doctor api call
 
+  const { data: timeData, isLoading } = useTimeSlotForDoctorQuery(doctorId);
+
+  //*api call for create doctor service
   const [addDoctorService] = useAddDoctorServiceMutation();
 
   const handleAddService = async () => {
@@ -78,7 +82,7 @@ const AddService = (props) => {
                   Total number of appointments
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   id="vacancy"
                   value={vacancy}
                   onChange={(e) => setVacancy(e.target.value)}
@@ -101,6 +105,8 @@ const AddService = (props) => {
                   className="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
                 >
                   <option value="">Select</option>
+
+                  {isLoading && <option value="">please wait..</option>}
                   {timeData?.map((timeSlot) => (
                     <option key={timeSlot?.id} value={timeSlot?.id}>
                       {timeSlot?.day} , {timeSlot?.startTime} -{" "}

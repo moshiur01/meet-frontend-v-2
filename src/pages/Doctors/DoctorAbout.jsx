@@ -2,7 +2,7 @@
 import { formatDate } from "../../utils/FormatDate";
 
 const DoctorAbout = ({ doctorData }) => {
-  // console.log(doctorData);
+  console.log(doctorData);
   return (
     <div>
       <div>
@@ -22,37 +22,26 @@ const DoctorAbout = ({ doctorData }) => {
         {/* map will done here */}
         <ul className="pt-4 md:p-5">
           {/* qualification one  */}
-          <li className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]">
-            <div>
-              <span className="text-irisBlueColor text-[15px] leading-6 font-semibold">
-                {formatDate("06-23-2014")} - {formatDate("06-23-2016")}
-              </span>
-              <p className="text-[16px] leading-6 font-medium text-textColor">
-                PHD in Surgeon
+
+          {doctorData?.educations?.map((education) => (
+            <li
+              key={education?.id}
+              className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]"
+            >
+              <div>
+                <span className="text-irisBlueColor text-[15px] leading-6 font-semibold">
+                  {formatDate(education?.from)} - {formatDate(education?.to)}
+                </span>
+                <p className="text-[16px] leading-6 font-medium text-textColor">
+                  {education?.degreeName}
+                </p>
+              </div>
+
+              <p className="text-[14px] leading-5 font-medium text-textColor">
+                {education?.universityName}
               </p>
-            </div>
-
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
-
-          {/* qualification two  */}
-
-          <li className="flex flex-col sm:flex-row sm:justify-between sm:items-end md:gap-5 mb-[30px]">
-            <div>
-              <span className="text-irisBlueColor text-[15px] leading-6 font-semibold">
-                {formatDate("12-04-2010")} - {formatDate("12-04-2014")}
-              </span>
-              <p className="text-[16px] leading-6 font-medium text-textColor">
-                PHD in Surgeon
-              </p>
-            </div>
-
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
+            </li>
+          ))}
         </ul>
       </div>
 
@@ -64,29 +53,20 @@ const DoctorAbout = ({ doctorData }) => {
         <ul className="grid sm:grid-cols-2 gap-[30px] pt-4 md:p-5">
           {/* experience mapper */}
 
-          <li className="p-4 rounded bg-[#fff9ea]">
-            <span className="text-yellowColor text-[15px] leading-6 font-semibold">
-              {formatDate("06-23-2014")} - {formatDate("06-23-2016")}
-            </span>
-            <p className="text-[16px] leading-6 font-medium text-textColor">
-              Sr. Surgeon
-            </p>
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
-
-          <li className="p-4 rounded bg-[#fff9ea]">
-            <span className="text-yellowColor text-[15px] leading-6 font-semibold">
-              {formatDate("06-23-2014")} - {formatDate("06-23-2016")}
-            </span>
-            <p className="text-[16px] leading-6 font-medium text-textColor">
-              Sr. Surgeon
-            </p>
-            <p className="text-[14px] leading-5 font-medium text-textColor">
-              New Apollo Hospital, New York
-            </p>
-          </li>
+          {doctorData?.experiences?.map((experience) => (
+            <li key={experience?.id} className="p-4 rounded bg-[#fff9ea]">
+              <span className="text-yellowColor text-[15px] leading-6 font-semibold">
+                {formatDate(experience?.from)} -{" "}
+                {experience?.to === "" ? "Present" : formatDate(experience?.to)}
+              </span>
+              <p className="text-[16px] leading-6 font-medium text-textColor">
+                {experience?.designation}
+              </p>
+              <p className="text-[14px] leading-5 font-medium text-textColor">
+                {experience?.WorkPlaceName}
+              </p>
+            </li>
+          ))}
         </ul>
       </div>
     </div>

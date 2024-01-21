@@ -225,7 +225,7 @@ const Home = () => {
               <img src={faqImg} alt="" />
             </div>
             <div className="w-full md:w-1/2">
-              <h2 className="heading">
+              <h2 className="heading mb-5">
                 Most questions by our beloved patients
               </h2>
 

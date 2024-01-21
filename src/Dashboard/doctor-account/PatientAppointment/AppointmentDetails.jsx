@@ -62,12 +62,12 @@ const AppointmentDetails = ({ doctorId }) => {
       {isLoading && <Loading />}
 
       {!isLoading && DoctorAppointmentData?.length === 0 && (
-        <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor  ">
-          You did not book any appointment yet!
+        <h2 className="mt-5 text-center leading-9 text-[20px] font-semibold text-primaryColor ">
+          Any patient has not booked any appointment yet!
         </h2>
       )}
 
-      {!isLoading && (
+      {!isLoading && DoctorAppointmentData?.length !== 0 && (
         <div className="overflow-x-auto">
           <table className="min-w-full border rounded-md overflow-hidden">
             <thead className="bg-gray-100">

@@ -28,6 +28,7 @@ const DoctorDashboard = () => {
   const handleLogout = () => {
     removeUserInfo(authKey);
     navigate("/login");
+    window?.location?.reload();
   };
 
   return (
