@@ -130,15 +130,24 @@ const MedicineStatus = () => {
       title: "Prescription Link",
       dataIndex: "appointment?.prescriptionLink",
       render: (text, record) => (
-        <a
-          href={record?.appointment?.prescriptionLink}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <button className="px-4  py-1 font-semibold text-white bg-irisBlueColor rounded-lg  block mx-auto">
-            View Proscription
-          </button>
-        </a>
+        // console.log(record),
+        <>
+          {record?.appointment?.prescriptionLink === null ? (
+            <p className=" bg-yellow-600 rounded-lg text-white font-[500] text-md text-center ">
+              Not Available
+            </p>
+          ) : (
+            <a
+              href={record?.appointment?.prescriptionLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <button className="px-4 py-1 font-semibold text-white bg-irisBlueColor rounded-lg block mx-auto">
+                View Prescription
+              </button>
+            </a>
+          )}
+        </>
       ),
     },
     {
