@@ -11,6 +11,11 @@ export const sidebarItems = () => {
       key: `/admin/profile`,
       icon: <ImProfile />,
     },
+    {
+      label: <Link to={`/admin/profile/changePassword`}>Change Password</Link>,
+      key: `/admin/profile/changePassword`,
+      icon: <ImProfile />,
+    },
 
     // admins (create and show )
     {

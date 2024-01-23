@@ -2,14 +2,16 @@
 import { Col, Row, message } from "antd";
 import Form from "../../components/Forms/Form";
 import FormInput from "../../components/Forms/FormInput";
-import { useUpdatePatientPasswordMutation } from "../../redux/api/patient/patientApi";
 
-const ChangePassword = (patientData) => {
-  const id = patientData?.user?.id;
+import { useUpdatePasswordMutation } from "../../redux/api/authApi";
+import { getUserInfo } from "../../services/auth.service";
 
+const AdminChangePassword = () => {
+  const { id } = getUserInfo();
   //*update password api call
 
-  const [updatePatientPassword] = useUpdatePatientPasswordMutation();
+  const [updatePassword] = useUpdatePasswordMutation();
+
   const changePassword = async (data) => {
     message.loading("Please wait...");
     // console.log(data);
@@ -18,8 +20,9 @@ const ChangePassword = (patientData) => {
       message.error("password must be 6 letters");
       return;
     }
+
     try {
-      const res = await updatePatientPassword({
+      const res = await updatePassword({
         id: id,
         body: data,
       });
@@ -84,4 +87,4 @@ const ChangePassword = (patientData) => {
   );
 };
 
-export default ChangePassword;
+export default AdminChangePassword;

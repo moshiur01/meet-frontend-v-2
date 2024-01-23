@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+import AdminChangePassword from "../Dashboard/admin-account/AdminChangePassword";
 import AdminDashboard from "../Dashboard/admin-account/AdminDashboard";
 import AdminProfile from "../Dashboard/admin-account/AdminProfile";
 import AddDoctor from "../Dashboard/admin-account/ManageDoctor/AddDoctor";
@@ -84,6 +85,7 @@ function Routers() {
       >
         <Route path="" element={<AdminProfile />} />
 
+        <Route path="changePassword" element={<AdminChangePassword />} />
         <Route path="seeDoctors" element={<SeeAllDoctors />} />
         <Route path="addDoctors" element={<AddDoctor />} />
 

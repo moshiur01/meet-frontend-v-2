@@ -3,7 +3,6 @@
 import { message } from "antd";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { useUpdateAdminMutation } from "../../redux/api/adminApi";
 import uploadImage from "../../utils/UploadImageToCloudinary";
@@ -16,7 +15,6 @@ const AdminProfileSetting = ({ admin }) => {
     name: "",
     phoneNumber: "",
     email: "",
-    password: "",
     photo: "",
   });
 
@@ -29,7 +27,6 @@ const AdminProfileSetting = ({ admin }) => {
       name: admin?.name,
       email: admin?.email,
       phoneNumber: admin?.phoneNumber,
-      password: admin?.password,
     });
   }, [admin]);
 
@@ -53,12 +50,6 @@ const AdminProfileSetting = ({ admin }) => {
     if (file) {
       reader.readAsDataURL(file);
     }
-  };
-
-  //* password icon visibility
-  const [passwordShow, setPasswordShow] = useState(true);
-  const togglePasswordVisibility = () => {
-    setPasswordShow(!passwordShow);
   };
 
   //*update data api handler
@@ -138,28 +129,6 @@ const AdminProfileSetting = ({ admin }) => {
               className="w-full  px-4  py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer placeholder:text-sm"
               required
             />
-          </div>
-          {/* password  */}
-          <div className="mb-5 relative">
-            <input
-              type={!passwordShow ? "text" : "password"}
-              name="password"
-              placeholder="Enter Your Password"
-              value={formData?.password}
-              onChange={handleInputChange}
-              className="w-full px-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-primaryColor text-[22px] leading-7 text-headingColor placeholder:text-textColor rounded-md cursor-pointer placeholder:text-sm"
-              required
-            />
-            <span
-              onClick={togglePasswordVisibility}
-              className="absolute top-5 right-0"
-            >
-              {passwordShow ? (
-                <FaEyeSlash className="w-10" />
-              ) : (
-                <FaEye className="w-10" />
-              )}
-            </span>
           </div>
 
           {/* upload image */}
