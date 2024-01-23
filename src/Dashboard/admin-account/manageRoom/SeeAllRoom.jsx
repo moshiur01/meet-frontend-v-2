@@ -1,16 +1,18 @@
-import { Button, Input } from "antd";
+import { Button, Input, message } from "antd";
 import dayjs from "dayjs";
 import { useState } from "react";
-import { FaStar } from "react-icons/fa";
-import { RxReload } from "react-icons/rx";
+import { MdDeleteForever } from "react-icons/md";
 import { Link } from "react-router-dom";
+
+import { RxReload } from "react-icons/rx";
 import ActionBar from "../../../components/AdminUI/ActionBar";
 import ViewDataTable from "../../../components/Table/ViewDataTable";
-import { useDoctorsQuery } from "../../../redux/api/doctorApi";
+import {
+  useDeleteRoomMutation,
+  useRoomsQuery,
+} from "../../../redux/api/roomApi";
 
-const SeeAllDoctors = () => {
-  //   const { id: currentAdminId } = getUserInfo();
-
+const SeeAllRoom = () => {
   const query = {};
 
   const [page, setPage] = useState(1);
@@ -19,7 +21,7 @@ const SeeAllDoctors = () => {
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
-  //   const [deleteAdmin] = useDeleteAdminMutation();
+  const [deleteRoom] = useDeleteRoomMutation();
 
   query["limit"] = size;
   query["page"] = page;
@@ -28,23 +30,22 @@ const SeeAllDoctors = () => {
   query["searchTerm"] = searchTerm;
 
   //* admin date get api
-  const { data, isLoading } = useDoctorsQuery({ ...query });
+  const { data, isLoading } = useRoomsQuery({ ...query });
+  const rooms = data?.rooms?.data;
+  //   console.log(rooms);
+  const meta = data?.rooms?.meta;
+  //   console.log(meta);
 
-  //   console.log(data);
-  const doctors = data?.doctors?.data;
-  const meta = data?.doctors?.meta;
-
-  // console.log(doctors);
-
-  //   const deleteHandler = async (id) => {
-  //     message.loading("Deleting.....");
-  //     try {
-  //       const res = await deleteAdmin(id);
-  //       res?.data?.id && message.success("Admin Data Deleted successfully");
-  //     } catch (err) {
-  //       message.error(err.message);
-  //     }
-  //   };
+  //*delete handler
+  const deleteHandler = async (id) => {
+    message.loading("Deleting.....");
+    try {
+      const res = await deleteRoom(id);
+      res?.data?.id && message.success("Room number deleted successfully");
+    } catch (err) {
+      message.error(err.message);
+    }
+  };
 
   const columns = [
     {
@@ -54,66 +55,37 @@ const SeeAllDoctors = () => {
     },
 
     {
-      title: "Doctor name",
-      dataIndex: "name",
-      render: (text, record) => (
-        <span className=" block text-center">
-          {record.name} <br />({record.specialization?.name})
-        </span>
-      ),
-    },
-    {
-      title: "Doctor  Photo",
-      dataIndex: "photo",
-      render: (text, record) => (
-        <div className="flex justify-center items-center gap-4">
-          <img
-            className="rounded-lg"
-            src={record?.photo}
-            alt="User Photo"
-            style={{ maxWidth: "40px", maxHeight: "50px" }}
-          />
-
-          <span className="flex items-center gap-1">
-            <FaStar className="text-yellowColor" />({record?.avgRating})
-          </span>
-        </div>
-      ),
-    },
-    {
       title: "Room Number",
       dataIndex: "roomNumber",
       render: (text, record) => (
         <span className=" block text-center">
-          {record?.roomNumber?.roomNumber}
+          {record.roomNumber} <br />
+          {record?.doctor?.name ? (
+            `(${record?.doctor?.name})`
+          ) : (
+            <span className="font-semibold text-yellow-600">
+              No doctor assigned
+            </span>
+          )}
         </span>
       ),
     },
     {
-      title: "Email",
-      dataIndex: "email",
-    },
-    {
-      title: "Phone Number",
-      dataIndex: "phone",
-    },
-    {
-      title: "Total Number of Appointments",
-      dataIndex: "appointment",
-      render: (text, record) => (
-        <span className="text-center block">
-          {record?.appointments?.length || 0}
+      title: "Room Number Status",
+      dataIndex: "isBooked",
+      render: (isBooked) => (
+        <span
+          className={`font-semibold ${
+            isBooked ? "text-red-500" : "text-green-500"
+          }`}
+        >
+          {isBooked ? "Booked" : "Available"}
         </span>
       ),
     },
 
     {
-      title: "Gender",
-      dataIndex: "gender",
-    },
-
-    {
-      title: "Member Since",
+      title: "Created At",
       dataIndex: "createdAt",
       render: function (data) {
         return data && dayjs(data).format("MMM D, YYYY hh:mm A");
@@ -128,26 +100,40 @@ const SeeAllDoctors = () => {
       },
       sorter: true,
     },
-    // {
-    //   title: "Action",
-    //   render: function (data) {
-    //     if (data?.id === currentAdminId) {
-    //       return null;
-    //     }
+    {
+      title: "Action",
+      render: function (data) {
+        return (
+          <>
+            {/* <Link to={`/admin/profile/editSpecialization/${data?.id}`}>
+              <Button
+                style={{
+                  backgroundColor: "blue",
+                  marginRight: "5px",
+                }}
+                type="primary"
+              >
+                <MdEditSquare />
+              </Button>
+            </Link> */}
 
-    //     return (
-    //       <Button
-
-    //       onClick={() => deleteHandler(data?.id)} type="primary" danger>
-    //         <MdDeleteForever />
-    //       </Button>
-    //     );
-    //   },
-    // },
+            {!data?.doctor && (
+              <Button
+                onClick={() => deleteHandler(data?.id)}
+                type="primary"
+                danger
+              >
+                <MdDeleteForever />
+              </Button>
+            )}
+          </>
+        );
+      },
+    },
   ];
 
   const onPaginationChange = (page, pageSize) => {
-    console.log("Page:", page, "PageSize:", pageSize);
+    // console.log("Page:", page, "PageSize:", pageSize);
     setPage(page);
     setSize(pageSize);
   };
@@ -165,11 +151,10 @@ const SeeAllDoctors = () => {
 
   return (
     <div className="mx-8 my-4">
-      <ActionBar title="Doctor List" className="font-[600]">
+      <ActionBar title="Room List" className="font-[600]">
         <Input
           type="text"
           size="large"
-          value={searchTerm}
           placeholder="Search..."
           style={{
             width: "20%",
@@ -179,7 +164,7 @@ const SeeAllDoctors = () => {
           }}
         />
         <div>
-          <Link to="/admin/profile/addDoctors">
+          <Link to="/admin/profile/createRoomNumber">
             <Button
               type="primary"
               style={{
@@ -189,7 +174,6 @@ const SeeAllDoctors = () => {
               Create
             </Button>
           </Link>
-
           {(!!sortBy || !!sortOrder || !!searchTerm) && (
             <Button
               onClick={resetFilters}
@@ -205,7 +189,7 @@ const SeeAllDoctors = () => {
       <ViewDataTable
         loading={isLoading}
         columns={columns}
-        dataSource={doctors}
+        dataSource={rooms}
         pageSize={size}
         totalPages={meta?.total}
         showSizeChanger={true}
@@ -217,4 +201,4 @@ const SeeAllDoctors = () => {
   );
 };
 
-export default SeeAllDoctors;
+export default SeeAllRoom;

@@ -14,6 +14,8 @@ import SeeAllMedicineDeliveryProfile from "../Dashboard/admin-account/manageMedi
 import CreateMedicineDeliveryProfile from "../Dashboard/admin-account/manageMedicine/createMedicineDeliveryProfile";
 import PatientReviewToDoctors from "../Dashboard/admin-account/manageReviews/PatientReviesToDoctors";
 import PlatformReviews from "../Dashboard/admin-account/manageReviews/PlatfromReviews";
+import CreateRoom from "../Dashboard/admin-account/manageRoom/CreateRoom";
+import SeeAllRoom from "../Dashboard/admin-account/manageRoom/SeeAllRoom";
 import CreateSpecialization from "../Dashboard/admin-account/manageSpecialization/CreateSpecialization";
 import EditSpecialization from "../Dashboard/admin-account/manageSpecialization/EditSpecialization";
 import SeeAllSpecialization from "../Dashboard/admin-account/manageSpecialization/SeeAllSpecialization";
@@ -86,28 +88,37 @@ function Routers() {
         <Route path="" element={<AdminProfile />} />
 
         <Route path="changePassword" element={<AdminChangePassword />} />
+
+        {/* doctors  */}
         <Route path="seeDoctors" element={<SeeAllDoctors />} />
         <Route path="addDoctors" element={<AddDoctor />} />
 
+        {/* patients  */}
         <Route path="patientReviews" element={<PatientReviewToDoctors />} />
         <Route path="platformReview" element={<PlatformReviews />} />
         <Route path="seeAllPatient" element={<SeeAllPatients />} />
 
+        {/* Specialization */}
         <Route path="createSpecialization" element={<CreateSpecialization />} />
-
         <Route path="editSpecialization/:id" element={<EditSpecialization />} />
-
         <Route
           path="seeAllSpecializations"
           element={<SeeAllSpecialization />}
         />
 
+        {/*  room number  */}
+        <Route path="createRoomNumber" element={<CreateRoom />} />
+        <Route path="seeAllRoom" element={<SeeAllRoom />} />
+
+        {/* appointments and payments  */}
         <Route path="doctorAppointments" element={<DoctorAppointment />} />
         <Route path="payments" element={<Payment />} />
 
+        {/* manage admin  */}
         <Route path="createAdmin" element={<CreateAdmin />} />
         <Route path="seeAdmins" element={<SeeAllAdmin />} />
 
+        {/* medicine man  */}
         <Route
           path="createMedicineDeliveryProfile"
           element={<CreateMedicineDeliveryProfile />}

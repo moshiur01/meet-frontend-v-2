@@ -4,6 +4,7 @@ import FormInput from "../../../components/Forms/FormInput";
 import FormSelectField from "../../../components/Forms/FormSelectField";
 import FormTextArea from "../../../components/Forms/FormTextArea";
 import { useAddDoctorMutation } from "../../../redux/api/doctorApi";
+import { useNotBookedRoomsQuery } from "../../../redux/api/roomApi";
 import { useSpecializationsQuery } from "../../../redux/api/specializationApi";
 
 const AddDoctor = () => {
@@ -18,6 +19,24 @@ const AddDoctor = () => {
       return {
         label: specialization?.name,
         value: specialization?.id,
+      };
+    });
+
+  //* get not booked room numbers api
+
+  const { data: roomsData, isLoading: roomIsLoading } = useNotBookedRoomsQuery({
+    limit: 100,
+    page: 1,
+  });
+
+  const rooms = roomsData?.rooms?.data;
+
+  const roomOptions =
+    rooms &&
+    rooms?.map((singleRoom) => {
+      return {
+        label: singleRoom?.roomNumber,
+        value: singleRoom?.id,
       };
     });
 
@@ -41,15 +60,18 @@ const AddDoctor = () => {
     message.loading("Creating Doctor Data...");
 
     // console.log(data);
+
     try {
       const res = await addDoctor({
         ...data,
       });
-
-      //@ts-ignore
-      res.data.id && message.success("Doctor successfully created");
+      if (res?.data?.doctor?.id) {
+        message.success("Doctor successfully created");
+      } else {
+        message.error("Failed to create doctor data");
+      }
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
     }
   };
 
@@ -117,6 +139,14 @@ const AddDoctor = () => {
                 label="Specialization"
                 options={specializationOptions}
                 loading={isLoading}
+              />
+            </Col>
+            <Col span={8} style={{ margin: "10px 0" }}>
+              <FormSelectField
+                name="roomNumberId"
+                label=" Assign Room Number"
+                options={roomOptions}
+                loading={roomIsLoading}
               />
             </Col>
 

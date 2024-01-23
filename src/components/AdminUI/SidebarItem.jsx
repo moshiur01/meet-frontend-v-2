@@ -66,6 +66,24 @@ export const sidebarItems = () => {
       ],
     },
 
+    {
+      label: "Manage Rooms",
+      key: "rooms",
+      icon: <MdOutlineImageAspectRatio />,
+      children: [
+        {
+          label: (
+            <Link to={"/admin/profile/createRoomNumber"}>Create Room No.</Link>
+          ),
+          key: "/admin/profile/createRoomNumber",
+        },
+        {
+          label: <Link to={`/admin/profile/seeAllRoom`}>All Rooms</Link>,
+          key: `/admin/profile/seeAllRoom`,
+        },
+      ],
+    },
+
     //doctors (show and add)
     {
       label: "Doctors",
