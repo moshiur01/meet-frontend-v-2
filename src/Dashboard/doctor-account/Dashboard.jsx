@@ -10,6 +10,7 @@ import PatientPrescription from "./PatientAppointment/PatientPriscription";
 import AddQualification from "./Qualification/AddQualification";
 import AddService from "./Services/AddService";
 import AddTimeSlot from "./TimeSlot/AddTimeSlot";
+import DoctorChangePassword from "./profile/DoctorChangePassword";
 import Profile from "./profile/Profile";
 
 const DoctorDashboard = () => {
@@ -54,6 +55,18 @@ const DoctorDashboard = () => {
                     } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border-b-2`}
                   >
                     My Profile
+                  </button>
+
+                  {/* change password  */}
+                  <button
+                    onClick={() => setActiveTab("changePassword")}
+                    className={`${
+                      activeTab === "changePassword"
+                        ? "bg-irisBlueColor text-white font-normal"
+                        : ""
+                    } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border-b-2`}
+                  >
+                    Change Password
                   </button>
 
                   {/* my-appointments  */}
@@ -147,6 +160,11 @@ const DoctorDashboard = () => {
               {activeTab === "profile" && (
                 <div>
                   <Profile doctorData={doctorData} />
+                </div>
+              )}
+              {activeTab === "changePassword" && (
+                <div>
+                  <DoctorChangePassword doctorData={doctorData} />
                 </div>
               )}
               {activeTab === "appointments" && (
