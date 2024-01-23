@@ -86,7 +86,7 @@ export const sidebarItems = () => {
       children: [
         {
           label: (
-            <Link to={"/admin/profile/patientReviews"}>Patient Reviews</Link>
+            <Link to={"/admin/profile/patientReviews"}>Doctor Reviews</Link>
           ),
           key: "/admin/profile/PlatformReviews",
         },

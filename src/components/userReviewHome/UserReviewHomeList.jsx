@@ -14,7 +14,7 @@ const UserReviewHomeList = () => {
 
   const reviews = data?.platformReviews?.data;
 
-  console.log(reviews);
+  // console.log(reviews);
 
   return (
     <div className="mt-[30px] lg:mt-[55px]">

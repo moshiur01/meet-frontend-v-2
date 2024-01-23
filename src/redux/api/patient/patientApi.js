@@ -53,6 +53,16 @@ const patientApi = baseApi.injectEndpoints({
       invalidatesTags: [tagTypes.patient],
     }),
 
+    //*update patient password
+    updatePatientPassword: build.mutation({
+      query: (data) => ({
+        url: `${PATIENT_URL}/updatePassword/${data.id}`,
+        method: "PATCH",
+        data: data.body,
+      }),
+      invalidatesTags: [tagTypes.patient],
+    }),
+
     deletePatient: build.mutation({
       //@ts-ignore
       query: (id) => ({
@@ -70,5 +80,6 @@ export const {
   usePatientsQuery,
   useAddPatientMutation,
   useUpdatePatientMutation,
+  useUpdatePatientPasswordMutation,
   useDeletePatientMutation,
 } = patientApi;

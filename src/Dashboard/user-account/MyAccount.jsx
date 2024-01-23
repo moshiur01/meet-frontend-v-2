@@ -4,6 +4,7 @@ import Loading from "../../components/Loader/Loading";
 import { authKey } from "../../constrains/storageKey";
 import { usePatientQuery } from "../../redux/api/patient/patientApi";
 import { getUserInfo, removeUserInfo } from "../../services/auth.service";
+import ChangePassword from "./ChangePassword";
 import MyBooking from "./MyBooking";
 import PlatformReview from "./PlatformReview";
 import ProfileSetting from "./ProfileSetting";
@@ -101,14 +102,23 @@ const MyAccount = () => {
                 >
                   Profile Settings
                 </button>
-
+                <button
+                  onClick={() => setTab("ChangePassword")}
+                  className={`${
+                    tab === "ChangePassword"
+                      ? "bg-primaryColor text-white font-normal"
+                      : ""
+                  } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor`}
+                >
+                  Change Password
+                </button>
                 <button
                   onClick={() => setTab("platformReview")}
                   className={`${
                     tab === "platformReview"
                       ? "bg-primaryColor text-white font-normal"
                       : ""
-                  } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor`}
+                  } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor mt-[10px]`}
                 >
                   Give Review
                 </button>
@@ -122,6 +132,9 @@ const MyAccount = () => {
               )}
               {tab === "platformReview" && (
                 <PlatformReview user={patientData} />
+              )}
+              {tab === "ChangePassword" && (
+                <ChangePassword user={patientData} />
               )}
             </div>
           </div>
