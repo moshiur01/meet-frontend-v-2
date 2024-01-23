@@ -1,9 +1,12 @@
 import { Pagination } from "antd";
 import { useState } from "react";
+import { GrPowerReset } from "react-icons/gr";
 import DoctorCard from "../../components/Doctors/DoctorCard";
+import DoctorSpecializationInput from "../../components/Forms/DoctorSpecializationInput";
 import Loading from "../../components/Loader/Loading";
 import UserReviewHomeList from "../../components/userReviewHome/UserReviewHomeList";
 import { useDoctorsQuery } from "../../redux/api/doctorApi";
+
 const Doctors = () => {
   const query = {};
 
@@ -12,12 +15,14 @@ const Doctors = () => {
   const [sortBy, setSortBy] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
+  const [specializationId, setSpecializationId] = useState({});
 
   query["limit"] = size;
   query["page"] = page;
   query["sortBy"] = sortBy;
   query["sortOrder"] = sortOrder;
   query["searchTerm"] = searchTerm;
+  query["specializationId"] = specializationId?.value;
 
   const { data, isLoading } = useDoctorsQuery({ ...query });
 
@@ -28,9 +33,12 @@ const Doctors = () => {
     setPage(newPage);
   };
 
-  // console.log(meta);
-
-  // console.log(doctors);
+  const resetFilter = () => {
+    setSortBy("");
+    setSortOrder("");
+    setSearchTerm("");
+    setSpecializationId("");
+  };
 
   return (
     <>
@@ -49,6 +57,24 @@ const Doctors = () => {
             />
             <button className="btn mt-0 rounded-[0px] rounded-r-md">
               Search
+            </button>
+          </div>
+
+          <div className="mt-4 ">
+            <p className="mr-12 mb-2">choose category</p>
+            <DoctorSpecializationInput
+              style={{
+                marginLeft: "10px",
+              }}
+              setSpecializationId={setSpecializationId}
+              specializationId={specializationId}
+              placeholder="Select Category"
+            />
+            <button
+              className="ml-6 px-4 py-2 border border-irisBlueColor rounded-full transition duration-300 ease-in-out hover:bg-irisBlueColor hover:text-white focus:outline-none focus:shadow-outline-irisBlueColor"
+              onClick={resetFilter}
+            >
+              <GrPowerReset className="text-2xl" />
             </button>
           </div>
         </div>
