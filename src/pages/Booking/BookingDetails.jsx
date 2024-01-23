@@ -20,6 +20,7 @@ const BookingDetails = () => {
 
   const [bookAppointment] = useBookAppointmentMutation();
 
+  //*appointment book api
   const handleBookAppointment = async (slotId, doctorServiceId, doctorId) => {
     const { id: patientId } = getUserInfo();
 
@@ -59,6 +60,7 @@ const BookingDetails = () => {
                 <th className="py-2 px-4 border-b">Day</th>
                 <th className="py-2 px-4 border-b">Start Time</th>
                 <th className="py-2 px-4 border-b">End Time</th>
+                <th className="py-2 px-4 border-b">Room No.</th>
                 <th className="py-2 px-4 border-b">Amount</th>
                 <th className="py-2 px-4 border-b">Available for Booking</th>
                 <th className="py-2 px-4 border-b">Action</th>
@@ -77,6 +79,9 @@ const BookingDetails = () => {
                   </td>
                   <td className="py-2 px-4 border-b">
                     {service?.slot?.EndTime}
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    {service?.doctor?.roomNumber?.roomNumber}
                   </td>
                   <td className="py-2 px-4 border-b">{service?.fees}</td>
                   <td className="py-2 px-4 border-b">

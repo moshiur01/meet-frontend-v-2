@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Pagination } from "antd";
 import { useState } from "react";
 import { GrPowerReset } from "react-icons/gr";

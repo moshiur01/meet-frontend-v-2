@@ -46,6 +46,11 @@ const Profile = ({ doctorData }) => {
                   {doctorData?.bio}
                 </p>
               </div>
+
+              <div className="font-bold text-center">
+                Room <br />
+                {doctorData?.roomNumber?.roomNumber}
+              </div>
             </div>
 
             <div className="mt-[50px] border-b border-solid border-[#0066ff34]">

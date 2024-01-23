@@ -65,6 +65,7 @@ const MyBooking = () => {
                   <th className="py-2 px-4 border-b">Start Time</th>
                   <th className="py-2 px-4 border-b">End Time</th>
                   <th className="py-2 px-4 border-b">Fees</th>
+                  <th className="py-2 px-4 border-b">Room No.</th>
                   <th className="py-2 px-4 border-b">Payment Status</th>
                   <th className="py-2 px-4 border-b">Appointment Status</th>
                   <th className="py-2 px-4 border-b">Prescription</th>
@@ -89,6 +90,9 @@ const MyBooking = () => {
                     </td>
                     <td className="py-2 px-4 border-b">
                       {singleBooking?.doctorService?.fees}
+                    </td>
+                    <td className="py-2 px-4 border-b">
+                      {singleBooking?.doctor?.roomNumber?.roomNumber}
                     </td>
 
                     {/* <td className="py-2 px-4 border-b">
