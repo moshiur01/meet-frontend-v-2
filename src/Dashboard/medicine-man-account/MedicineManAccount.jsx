@@ -5,6 +5,7 @@ import { authKey } from "../../constrains/storageKey";
 
 import { useMedicineManQuery } from "../../redux/api/medicineManApi";
 import { getUserInfo, removeUserInfo } from "../../services/auth.service";
+import MedicineManChangePassword from "./MedicineManChangePassword";
 import MedicineManProfile from "./MedicineManProfile";
 import MedicineStatus from "./MedicineStatus";
 
@@ -94,11 +95,24 @@ const MedicineManAccount = () => {
                 >
                   Profile Settings
                 </button>
+                <button
+                  onClick={() => setTab("changePassword")}
+                  className={`${
+                    tab === "changePassword"
+                      ? "bg-primaryColor text-white font-normal"
+                      : ""
+                  } p-2 mr-5 px-5 rounded-md text-headingColor font-semibold text-[16px] leading-7 border border-solid border-primaryColor`}
+                >
+                  Change Password
+                </button>
               </div>
 
               {/* conditional render tab content  */}
 
               {tab === "medicine" && <MedicineStatus />}
+              {tab === "changePassword" && (
+                <MedicineManChangePassword user={medicineManData} />
+              )}
               {tab === "profileSetting" && (
                 <MedicineManProfile user={medicineManData} />
               )}
