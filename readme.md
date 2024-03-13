@@ -1,6 +1,6 @@
 # Project Name: Meet your doctor (Frontend)
 
-## live Site Link: https://algo-digital.web.app/
+## live Site Link: https://meet-your-doctor.vercel.app/
 
 ## Backend Repo Link: https://github.com/moshiur01/meet-your-doctor-backend-v2
 
