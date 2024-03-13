@@ -1,4 +1,4 @@
-import { instance as axiosInstance } from "./axiosInstance";
+import { instance as axiosInstance } from "./axiosinstance";
 
 export const axiosBaseQuery =
   ({ baseUrl } = { baseUrl: "" }) =>

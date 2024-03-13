@@ -11,7 +11,8 @@ import DoctorAppointment from "../Dashboard/admin-account/manageAppointment/Doct
 import Payment from "../Dashboard/admin-account/manageAppointment/Payment";
 import MedicineDeliveryStatus from "../Dashboard/admin-account/manageMedicine/MedicineDeliveryStatus";
 import SeeAllMedicineDeliveryProfile from "../Dashboard/admin-account/manageMedicine/SeeAllMedicineDeliveryProfile";
-import CreateMedicineDeliveryProfile from "../Dashboard/admin-account/manageMedicine/createMedicineDeliveryProfile";
+
+import CreateMedicineDeliveryProfile from "../Dashboard/admin-account/manageMedicine/CreateMedicineDeliveryProfile";
 import PatientReviewToDoctors from "../Dashboard/admin-account/manageReviews/PatientReviesToDoctors";
 import PlatformReviews from "../Dashboard/admin-account/manageReviews/PlatfromReviews";
 import CreateRoom from "../Dashboard/admin-account/manageRoom/CreateRoom";
@@ -21,7 +22,7 @@ import EditSpecialization from "../Dashboard/admin-account/manageSpecialization/
 import SeeAllSpecialization from "../Dashboard/admin-account/manageSpecialization/SeeAllSpecialization";
 import DoctorDashboard from "../Dashboard/doctor-account/Dashboard";
 import MedicineManAccount from "../Dashboard/medicine-man-account/MedicineManAccount";
-import MyAccount from "../Dashboard/user-account/myAccount";
+import MyAccount from "../Dashboard/user-account/MyAccount";
 import BookingDetails from "../pages/Booking/BookingDetails";
 import Contact from "../pages/Contact";
 import Doctors from "../pages/Doctors/Doctors";
