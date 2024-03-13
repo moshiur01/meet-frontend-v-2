@@ -1,0 +1,24 @@
+# Project Name: Meet your doctor (Backend)
+
+## live Site Link: https://algo-digital.web.app/
+
+# Project Description
+
+- A Hybrid base doctor appointment booking system here a user can book, manage his appointment and get the prescribed medicine through online
+
+# Features
+
+- On the Home page, users can navigate one section to another section through the navigation bar. On the Home page, users can navigate to the services page, doctor section, review section, About Us section, Contact Us section.
+
+- Users can log in to the website with an email and password.
+- Users can book their appointment after login. No user can see the doctors’s details without login.
+- Users can only book a appointment after login.
+- Users can upload picture.
+- After login user can use the dashboard facility.
+
+- In the dashboard, a user can see their booking status, post a review. On the home page, users can see their reviews.
+
+- Admin facility is added to maintain the website. In the Dashboard An Admin can make another admin, manage orders, manage doctors, add doctors, manage users reviews, manage pharmaceutical vendors.
+
+- All the data are used in the website like user details, services, orders, reviews are hosted in the supabase.
+- User can't go to some route without login or admin permission witch is developed by react router.
