@@ -12,9 +12,15 @@
 
 ![https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/image.png](https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/image.png)
 
-# Features
+### Features
 
 - On the Home page, users can navigate one section to another section through the navigation bar. On the Home page, users can navigate to the services page, doctor section, review section, About Us section, Contact Us section.
+
+<details>
+<summary>See Image</summary>
+<br>
+![https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/image.png](https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/image.png)
+</details>
 
 - Users can log in to the website with an email and password.
 - Users can book their appointment after login. No user can see the doctors’s details without login.
