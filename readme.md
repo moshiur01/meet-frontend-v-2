@@ -10,7 +10,7 @@
 
 ### Functionality List
 
-![public\readmeImg\image.png](public\readmeImg\image.png)
+![https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/image.png](https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/image.png)
 
 # Features
 
