@@ -19,7 +19,7 @@
 <details>
   <summary>See Image</summary>
   <br>
-  <img src="https://raw.githubusercontent.com/moshiur01/meet-your-doctor-frontend/main/public/readmeImg/image.png" alt="Image Description">
+  <img src="https://github.com/moshiur01/meet-your-doctor-frontend/blob/mainn/public/readmeImg/home-page.png" alt="Image Description">
 </details>
 
 - Users can log in to the website with an email and password.
