@@ -16,8 +16,6 @@
 
 - On the Home page, users can navigate one section to another section through the navigation bar. On the Home page, users can navigate to the services page, doctor section, review section, About Us section, Contact Us section.
 
-Img: ![alt text](http://url/to/img.png)
-
 - Users can log in to the website with an email and password.
 - Users can book their appointment after login. No user can see the doctors’s details without login.
 - Users can only book a appointment after login.
